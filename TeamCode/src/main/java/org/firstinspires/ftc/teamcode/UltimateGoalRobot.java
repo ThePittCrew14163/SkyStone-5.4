@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Blinker;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -28,10 +29,11 @@ public class UltimateGoalRobot {
     public DcMotor wheel4;
     public DcMotor encoderY; // also for roller
     public DcMotor encoderX;
-    public DcMotor flywheel;
+    public DcMotorEx flywheel;
     private double last_flywheel_clicks = 0;
     private double last_flywheel_ms = System.currentTimeMillis();
     private double target_flywheel_power = -0.81;
+    public double best_flywheel_velocity = -2048;
     final public double CLICKS_PER_ROTATION = 28;
     public DcMotor wobbleLift;
 
@@ -87,7 +89,7 @@ public class UltimateGoalRobot {
         wheel4 = hardwareMap.get(DcMotor.class, "wheel4");
         encoderY = hardwareMap.get(DcMotor.class, "encoderY"); // also for roller
         encoderX = hardwareMap.get(DcMotor.class, "encoderX");
-        flywheel = hardwareMap.get(DcMotor.class, "flywheel");
+        flywheel = hardwareMap.get(DcMotorEx.class, "flywheel");
         wobbleLift = hardwareMap.get(DcMotor.class, "wobbleLift");
 
         DcMotor[] motors = {wheel1, wheel2, wheel3, wheel4};
