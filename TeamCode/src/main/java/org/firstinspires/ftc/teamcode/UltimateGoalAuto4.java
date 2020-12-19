@@ -42,8 +42,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 @Autonomous(name="Ultimate Goal Better Solo")
-public class UltimateGoalAuto4 extends LinearOpMode
-{
+public class UltimateGoalAuto4 extends LinearOpMode {
     // NOTE: THE ROBOT STARTS ON THE FAR BLUE LINE WITH ITS MIDDLE LEFT CHASSIS EXTRUSION OVER THE LINE.
     // NOTE: EXTRUSION THAT HOLDS WOBBLE GOAL GRABBER WRIST LINES UP AT THE SAME HEIGHT WITH PIECE OF YELLOW TAPE THAT JOSH PUT THERE.
     // NOTE: MOST OF THE VISION CODE WAS COPIED FROM 9794 WIZARDS.EXE.
@@ -53,8 +52,7 @@ public class UltimateGoalAuto4 extends LinearOpMode
     private RingPosition ringPosition;
 
     @Override
-    public void runOpMode()
-    {
+    public void runOpMode() {
         robot.init(hardwareMap, this);
 
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
@@ -67,13 +65,11 @@ public class UltimateGoalAuto4 extends LinearOpMode
         // landscape orientation, though.
         phoneCam.setViewportRenderingPolicy(OpenCvCamera.ViewportRenderingPolicy.OPTIMIZE_VIEW);
 
-        phoneCam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
-        {
+        phoneCam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener() {
             @Override
-            public void onOpened()
-            {
+            public void onOpened() {
                 // supported camera resolutions (for the gold E4) are: 1280x720, 960x720, 768x432, 720x480, 640x480, 320x240, 176x144
-                phoneCam.startStreaming(720,480, OpenCvCameraRotation.UPSIDE_DOWN);
+                phoneCam.startStreaming(720, 480, OpenCvCameraRotation.UPSIDE_DOWN);
             }
         });
 
@@ -86,8 +82,7 @@ public class UltimateGoalAuto4 extends LinearOpMode
         robot.claw1.setPosition(0.3);
         robot.claw2.setPosition(0.7);
 
-        while (!isStarted() && !isStopRequested())
-        {
+        while (!isStarted() && !isStopRequested()) {
             this.ringPosition = pipeline.position;
             telemetry.addData("Analysis", pipeline.getAnalysis());
             telemetry.addData("Position", pipeline.position);
@@ -101,7 +96,7 @@ public class UltimateGoalAuto4 extends LinearOpMode
 
         //////// PLACE FIRST WOBBLE GOAL ////////////
         if (this.ringPosition == RingPosition.NONE) {
-            robot.odStrafe(0, 1, 22, 63 , 6, 80);
+            robot.odStrafe(0, 1, 22, 63, 6, 80);
             robot.odStrafe(0, 0.4, 22, 79, 3);
             robot.wobbleRelease.setPosition(0.8);
             robot.odometer.odSleep(350);
@@ -255,8 +250,7 @@ public class UltimateGoalAuto4 extends LinearOpMode
         //this.log_coordinates(); // doesn't work. yet.
     }
 
-    public static class RingDeterminationPipeline extends OpenCvPipeline
-    {
+    public static class RingDeterminationPipeline extends OpenCvPipeline {
         /*
          * Some color constants
          */
@@ -266,7 +260,7 @@ public class UltimateGoalAuto4 extends LinearOpMode
         /*
          * The core values which define the location and size of the sample regions
          */
-        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(243,425);
+        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(243, 425);
 
         static final int REGION_WIDTH = 100;
         static final int REGION_HEIGHT = 100;
@@ -296,23 +290,20 @@ public class UltimateGoalAuto4 extends LinearOpMode
          * This function takes the RGB frame, converts to YCrCb,
          * and extracts the Cb channel to the 'Cb' variable
          */
-        void inputToCb(Mat input)
-        {
+        void inputToCb(Mat input) {
             Imgproc.cvtColor(input, YCrCb, Imgproc.COLOR_RGB2YCrCb);
             Core.extractChannel(YCrCb, Cb, 1);
         }
 
         @Override
-        public void init(Mat firstFrame)
-        {
+        public void init(Mat firstFrame) {
             inputToCb(firstFrame);
 
             region1_Cb = Cb.submat(new Rect(region1_pointA, region1_pointB));
         }
 
         @Override
-        public Mat processFrame(Mat input)
-        {
+        public Mat processFrame(Mat input) {
             inputToCb(input);
 
             avg1 = (int) Core.mean(region1_Cb).val[0];
@@ -325,11 +316,11 @@ public class UltimateGoalAuto4 extends LinearOpMode
                     2); // Thickness of the rectangle lines
 
             position = RingPosition.FOUR; // Record our analysis
-            if(avg1 > FOUR_RING_THRESHOLD){
+            if (avg1 > FOUR_RING_THRESHOLD) {
                 position = RingPosition.FOUR;
-            }else if (avg1 > ONE_RING_THRESHOLD){
+            } else if (avg1 > ONE_RING_THRESHOLD) {
                 position = RingPosition.ONE;
-            }else{
+            } else {
                 position = RingPosition.NONE;
             }
 
@@ -343,22 +334,22 @@ public class UltimateGoalAuto4 extends LinearOpMode
             return input;
         }
 
-        public int getAnalysis()
-        {
+        public int getAnalysis() {
             return avg1;
         }
 
 
     }
+
     /*
      * An enum to define the ring position
      */
-    public enum RingPosition
-    {
+    public enum RingPosition {
         FOUR,
         ONE,
         NONE
     }
+
     public void log_coordinates() {
         // Log robot's odometry coordinates after it's done with auto.
         try {
@@ -374,7 +365,7 @@ public class UltimateGoalAuto4 extends LinearOpMode
             telemetry.addData("Success!", "");
             telemetry.update();
             sleep(2500);
-        } catch (IOException e){
+        } catch (IOException e) {
             telemetry.addData("FAILURE!", "");
             telemetry.update();
             sleep(2500);
