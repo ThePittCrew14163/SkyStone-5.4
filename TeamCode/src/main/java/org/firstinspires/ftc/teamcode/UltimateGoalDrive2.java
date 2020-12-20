@@ -136,11 +136,13 @@ public class UltimateGoalDrive2 extends LinearOpMode {
             }
 
             ///////////////// RESET ODOMETRY gamepad 2 //////////////////
-            if (gamepad2.dpad_left) {
+            if (gamepad2.left_stick_y > 0.6) {
                 robot.odometer.x = 9;
-            } else if (gamepad2.dpad_down) {
+            } else if (gamepad2.left_stick_y < -0.6) {
+                robot.odometer.x = 87;
+            } else if (gamepad2.left_stick_x > 0.6) {
                 robot.odometer.y = 9;
-            } else if (gamepad2.dpad_up) {
+            } else if (gamepad2.left_stick_x < -0.6) {
                 robot.odometer.y = 132.5;
             }
 
@@ -172,9 +174,9 @@ public class UltimateGoalDrive2 extends LinearOpMode {
                 power_flywheel = true;
             }
             if (power_flywheel) {
-                robot.setFlywheelRPM(-4400);
+                robot.flywheel.setVelocity(robot.best_flywheel_velocity);
             } else {
-                robot.flywheel.setPower(0);
+                robot.flywheel.setVelocity(0);
             }
 
             if (gamepad2.left_trigger > 0) {

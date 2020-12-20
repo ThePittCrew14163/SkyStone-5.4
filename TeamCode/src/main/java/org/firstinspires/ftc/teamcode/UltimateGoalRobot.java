@@ -33,7 +33,7 @@ public class UltimateGoalRobot {
     private double last_flywheel_clicks = 0;
     private double last_flywheel_ms = System.currentTimeMillis();
     private double target_flywheel_power = -0.81;
-    public double best_flywheel_velocity = -2048;
+    public double best_flywheel_velocity = -2100;  // 4500rpm * CLICKS_PER_ROTATION / 60000
     final public double CLICKS_PER_ROTATION = 28;
     public DcMotor wobbleLift;
 
@@ -58,7 +58,7 @@ public class UltimateGoalRobot {
     final public double[] MID_SHOT = {59.5, 142, 23};
     final public double[] FAR_SHOT = {67, 142, 23};
 
-    final public double FLICKER_STANDBY = 0.45; // the position the flicker is at when its on standby to shoot something.
+    final public double FLICKER_STANDBY = 0.47; // the position the flicker is at when its on standby to shoot something.
 
     public void init(HardwareMap hardwareMap, LinearOpMode program) {
         // SET UP IMU AS BNO055IMU:
@@ -498,7 +498,7 @@ public class UltimateGoalRobot {
         }
         xdis -= list.get(1);
         ydis -= list.get(2);
-        zdis -= 8; // turret is 6.5 inches off the ground when level, but the actual number can be adjusted for performance
+        zdis -= 1; // turret is 6.5 inches off the ground when level, but the actual number can be adjusted for performance
         this.program.telemetry.addData("xdis", xdis);
         this.program.telemetry.addData("ydis", ydis);
         double angle = (list.get(0) + 360) % 360;
