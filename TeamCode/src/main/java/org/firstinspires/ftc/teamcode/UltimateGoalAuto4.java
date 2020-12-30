@@ -95,8 +95,8 @@ public class UltimateGoalAuto4 extends LinearOpMode {
         if (this.ringPosition == RingPosition.NONE) {
 
             /////////////// PLACE FIRST WOBBLE GOAL /////////////////////////////////////////////////
-            robot.odStrafe(0, 1, 22, 63, 6, 80);
-            robot.odStrafe(0, 0.42, 22, 80, 3);
+            robot.odStrafe(0, 1, 23, 63, 6, 80);
+            robot.odStrafe(0, 0.42, 23, 80, 3);
             robot.wobbleRelease.setPosition(0.8);
             robot.odometer.odSleep(350);
 
@@ -172,8 +172,8 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.flywheel.setVelocity(robot.best_flywheel_velocity);
             robot.wobbleRelease.setPosition(0.4);
             robot.wrist.setPosition(0.5);
-            robot.odStrafe(-60, 1, 39, 75, 8, 150);
-            robot.odStrafe(-70, 0.5, 38, 67, 3, 100);
+            robot.odStrafe(-60, 1, 39, 82, 8, 150);
+            robot.odStrafe(-70, 0.5, 38, 68, 3, 100);
             robot.odTurn(170, 1, 1200);
 
             /////// POWER SHOT 1 ///////
@@ -249,17 +249,17 @@ public class UltimateGoalAuto4 extends LinearOpMode {
         else {
 
             /////////////// PLACE FIRST WOBBLE GOAL /////////////////////////////////////////////////
-            robot.odStrafe(-5, 1, 22, 104, 9, 80);
-            robot.odStrafe(0, 0.45, 25, 122, 4);
+            robot.odStrafe(0, 1, 24, 104, 9, 80);
+            robot.odStrafe(0, 0.45, 27, 122, 4);
             robot.wobbleRelease.setPosition(0.8);
             robot.odometer.odSleep(350);
-            robot.odStrafe(0, 1, 31, 110, 7);
+            robot.odStrafe(0, 1, 32, 110, 7);
 
             //////////////// HIT POWER SHOTS /////////////////////////////////////////////////////////
             robot.flywheel.setVelocity(robot.best_flywheel_velocity);
             robot.wobbleRelease.setPosition(0.4);
-            robot.odStrafe(0, 1, 37, 75, 9);
-            robot.odStrafe(0, 0.45, 38, 67, 3);
+            robot.odStrafe(0, 1, 37, 82, 9);
+            robot.odStrafe(0, 0.45, 38, 68, 3);
             robot.odTurn(170, 1, 1300);
 
             /////// POWER SHOT 1 ///////

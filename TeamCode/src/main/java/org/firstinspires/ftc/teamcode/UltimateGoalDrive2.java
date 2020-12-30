@@ -178,6 +178,7 @@ public class UltimateGoalDrive2 extends LinearOpMode {
             } else {
                 robot.flywheel.setVelocity(0);
             }
+            telemetry.addData("RPM", robot.getFlywheelRPM());
 
             if (gamepad2.left_trigger > 0) {
                 robot.flicker.setPosition(1);
