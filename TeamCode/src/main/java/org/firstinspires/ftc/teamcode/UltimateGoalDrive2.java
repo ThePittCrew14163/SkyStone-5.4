@@ -56,6 +56,7 @@ public class UltimateGoalDrive2 extends LinearOpMode {
         waitForStart();
         robot.flicker.setPosition(robot.FLICKER_STANDBY);
         robot.wrist.setPosition(1);
+        robot.intakeBar.setPosition(0);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -122,7 +123,7 @@ public class UltimateGoalDrive2 extends LinearOpMode {
             telemetry.addData("Y value:", list.get(2));
 
 
-            ///////////////// INTAKE CONTROLS gaempad 1 //////////////////
+            ///////////////// INTAKE CONTROLS gamepad 1 //////////////////
             if (gamepad1.left_bumper && (int)System.currentTimeMillis() - this.last_intake_switch >= intake_switch_delay) {
                 run_intake = !run_intake;
                 this.last_intake_switch = (int) System.currentTimeMillis();
@@ -133,6 +134,11 @@ public class UltimateGoalDrive2 extends LinearOpMode {
                 robot.encoderX.setPower(0);
             } else {
                 robot.encoderX.setPower(1);
+            }
+            if (gamepad1.y) {
+                robot.intakeBar.setPosition(1);
+            } else if (gamepad1.a) {
+                robot.intakeBar.setPosition(0);
             }
 
             ///////////////// RESET ODOMETRY gamepad 2 //////////////////
@@ -195,7 +201,7 @@ public class UltimateGoalDrive2 extends LinearOpMode {
             }
             if (turret_idle) {
                 robot.turretBase.setPosition(0.51);
-                robot.turretLevel.setPosition(0.35);
+                robot.turretLevel.setPosition(0.26);
             } else if (gamepad2.x) {
                 robot.aim_turret(1);
             } else if (gamepad2.y) {

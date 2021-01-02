@@ -22,6 +22,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.opencv.core.Core;
@@ -40,7 +41,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-
+@Disabled
 @Autonomous(name="Ultimate Goal Better Solo")
 public class UltimateGoalAuto3 extends LinearOpMode
 {

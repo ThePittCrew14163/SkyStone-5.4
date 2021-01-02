@@ -45,6 +45,7 @@ public class UltimateGoalRobot {
     public Servo claw1;
     public Servo claw2;
     public Servo wobbleRelease;
+    public Servo intakeBar; // 1 is up, 0 is down.
     public Orientation angles; // used to get info from BNO055IMU
 
     HardwareMap hardwareMap;  // used to link code objects to real objects.
@@ -55,10 +56,10 @@ public class UltimateGoalRobot {
     final public double[] HIGH_GOAL = {36, 143, 36};
     final public double[] MID_GOAL = {36, 143, 22};
     final public double[] NEAR_SHOT = {52, 142, 23};
-    final public double[] MID_SHOT = {59.5, 142, 23};
-    final public double[] FAR_SHOT = {67, 142, 23};
+    final public double[] MID_SHOT = {60, 142, 23};
+    final public double[] FAR_SHOT = {68, 142, 23};
 
-    final public double FLICKER_STANDBY = 0.48; // the position the flicker is at when its on standby to shoot something.
+    final public double FLICKER_STANDBY = 0.485; // the position the flicker is at when its on standby to shoot something.
 
     public void init(HardwareMap hardwareMap, LinearOpMode program) {
         // SET UP IMU AS BNO055IMU:
@@ -82,6 +83,7 @@ public class UltimateGoalRobot {
         claw1 = hardwareMap.get(Servo.class, "claw1");
         claw2 = hardwareMap.get(Servo.class, "claw2");
         wobbleRelease = hardwareMap.get(Servo.class, "wobbleRelease"); // Note: wobbleRelease should not be set  > 0.8 ish, as it hits a beam.
+        intakeBar = hardwareMap.get(Servo.class, "intakeBar");
 
         wheel1 = hardwareMap.get(DcMotor.class, "wheel1");
         wheel2 = hardwareMap.get(DcMotor.class, "wheel2");
@@ -502,7 +504,7 @@ public class UltimateGoalRobot {
         this.program.telemetry.addData("xdis", xdis);
         this.program.telemetry.addData("ydis", ydis);
         double angle = (list.get(0) + 360) % 360;
-        double needed_angle = (-Math.atan2(xdis, ydis) * 180 / Math.PI + 190) % 360; // we add 190 degrees instead of 180 because the ring comes out the shooter a little to the right.
+        double needed_angle = (-Math.atan2(xdis, ydis) * 180 / Math.PI + 193) % 360; // we add 193 degrees instead of 180 because the ring comes out the shooter a little to the right.
         double diff = needed_angle - angle;
         turretBase.setPosition(0.5 - (diff / 170));
 
