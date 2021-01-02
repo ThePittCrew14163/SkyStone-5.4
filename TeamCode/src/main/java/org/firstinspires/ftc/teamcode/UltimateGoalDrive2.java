@@ -141,6 +141,7 @@ public class UltimateGoalDrive2 extends LinearOpMode {
                 robot.intakeBar.setPosition(0);
             }
 
+
             ///////////////// RESET ODOMETRY gamepad 2 //////////////////
             if (gamepad2.left_stick_y > 0.6) {
                 robot.odometer.x = 9;
