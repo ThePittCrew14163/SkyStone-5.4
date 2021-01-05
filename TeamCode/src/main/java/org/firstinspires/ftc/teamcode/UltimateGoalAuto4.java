@@ -205,7 +205,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.wrist.setPosition(0);
             // FIRST, PICK UP STARTER RING //
             robot.turretBase.setPosition(0.51);
-            robot.turretLevel.setPosition(0.35);
+            robot.turretLevel.setPosition(0.26);
             robot.encoderX.setPower(1);
             robot.odStrafe(-180, 1, 35, 49, 6, 120);
 
@@ -259,8 +259,8 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             //////////////// HIT POWER SHOTS /////////////////////////////////////////////////////////
             robot.flywheel.setVelocity(robot.best_flywheel_velocity);
             robot.wobbleRelease.setPosition(0.4);
-            robot.odStrafe(0, 1, 37, 81, 9);
-            robot.odStrafe(0, 0.45, 38, 67, 3);
+            robot.odStrafe(0, 1, 37, 79, 9);
+            robot.odStrafe(0, 0.45, 38, 66, 3);
             robot.odTurn(170, 1, 1300);
 
             /////// POWER SHOT 1 ///////
@@ -270,9 +270,6 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.odometer.odSleep(220);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
-            robot.wrist.setPosition(0);
-            robot.motorTurnNoReset(1, 2300, robot.wobbleLift);
-
             /////// POWER SHOT 2 ///////
             robot.aim_turret(2);
             robot.odometer.odSleep(400);
@@ -280,8 +277,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.odometer.odSleep(220);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
-            robot.claw1.setPosition(0.3);
-            robot.claw2.setPosition(0.7);
+            robot.intakeBar.setPosition(0.04);
 
             /////// POWER SHOT 3 ///////
             robot.aim_turret(1);
@@ -294,28 +290,26 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.flywheel.setVelocity(0);
 
             ////////////// GRAB SECOND WOBBLE GOAL ///////////////////////////////////////////////////////
-            // FIRST, SPREAD OUT THE STARTER STACK //
-            robot.odStrafe(170, 0.55, 36, 60, 4);
-            robot.odTurn(60, 0.8, 1000);
-            robot.odStrafe(60, 1, 36, 60, 4);
+            ////////////// GRAB SECOND WOBBLE GOAL ///////////////////////////////////////////////////////
+            robot.wrist.setPosition(0);
+            // FIRST, PICK UP STARTER RINGS //
+            robot.turretBase.setPosition(0.51);
+            robot.turretLevel.setPosition(0.26);
+            robot.encoderX.setPower(1);
+            robot.odStrafe(-180, 0.45, 35, 39, 6, 120);
 
-            // NOW GET WOBBLE GOAL //
+            // NOW GO GRAB WOBBLE GOAL //
             robot.motorTurnNoReset(1, 2600, robot.wobbleLift);
-            robot.odStrafe(60, 1, 52, 52, 8);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
-            robot.odStrafe(60, 1, 52, 44, 8);
-            robot.odStrafe(70, 0.65, 52, 38, 4, 50, 1500);
+            robot.odometer.odSleep(850);
+            robot.odStrafe(125, 0.9, 40, 46, 8, 100);
+            robot.odStrafe(115, 0.8, 42, 33, 5, 50, 2300);
             robot.claw1.setPosition(0.265);
             robot.claw2.setPosition(0.735);
             robot.odometer.odSleep(500);
             robot.motorTurnNoReset(1, 1000, robot.wobbleLift);
             robot.wrist.setPosition(0.05);
-
-            // INTAKE RINGS //
-            robot.encoderX.setPower(1);
-            robot.odStrafe(60, 1, 42, 44, 8);
-            robot.odStrafe(60, 0.5, 30, 48, 8);
 
             // SHOOT RINGS //
             robot.flywheel.setVelocity(robot.best_flywheel_velocity);

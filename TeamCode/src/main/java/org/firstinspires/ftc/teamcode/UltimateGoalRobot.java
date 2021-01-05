@@ -55,9 +55,9 @@ public class UltimateGoalRobot {
     // each coordinate is a len 3 array of x, y, and z. Starting point is audience/blue corner.
     final public double[] HIGH_GOAL = {36, 143, 36};
     final public double[] MID_GOAL = {36, 143, 22};
-    final public double[] NEAR_SHOT = {52, 142, 23};
-    final public double[] MID_SHOT = {60, 142, 23};
-    final public double[] FAR_SHOT = {68, 142, 23};
+    final public double[] NEAR_SHOT = {54, 142, 21};
+    final public double[] MID_SHOT = {64, 142, 20};
+    final public double[] FAR_SHOT = {72, 142, 20};
 
     final public double FLICKER_STANDBY = 0.485; // the position the flicker is at when its on standby to shoot something.
 
@@ -500,7 +500,7 @@ public class UltimateGoalRobot {
         }
         xdis -= list.get(1);
         ydis -= list.get(2);
-        zdis -= 1; // turret is 6.5 inches off the ground when level, but the actual number can be adjusted for performance
+        zdis -= 3; // turret is 6.5 inches off the ground when level, but the actual number can be adjusted for performance
         this.program.telemetry.addData("xdis", xdis);
         this.program.telemetry.addData("ydis", ydis);
         double angle = (list.get(0) + 360) % 360;
