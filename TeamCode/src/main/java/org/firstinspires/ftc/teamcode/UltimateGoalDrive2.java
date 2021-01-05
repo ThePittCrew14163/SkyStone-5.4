@@ -106,7 +106,7 @@ public class UltimateGoalDrive2 extends LinearOpMode {
 
             if (0.1 <= Math.abs(speed) && Math.abs(speed) < 0.2) {
                 // only the back wheels move, meaning that the robot can turn but at a lower speed.
-                speed2 = sign * 0.2;
+                speed2 *= 2;
                 speed1 = 0;
             } else if (Math.abs(speed) < 0.1) {
                 // at a certain threshold you'll get no movement, but the motors will whine. thus, it's best to just stop them.
