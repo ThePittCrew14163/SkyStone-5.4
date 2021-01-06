@@ -53,11 +53,11 @@ public class UltimateGoalRobot {
 
 
     // each coordinate is a len 3 array of x, y, and z. Starting point is audience/blue corner.
-    final public double[] HIGH_GOAL = {36, 143, 36};
-    final public double[] MID_GOAL = {36, 143, 22};
-    final public double[] NEAR_SHOT = {54, 142, 21};
-    final public double[] MID_SHOT = {64, 142, 20};
-    final public double[] FAR_SHOT = {72, 142, 20};
+    final public double[] HIGH_GOAL = {32, 143, 36};
+    final public double[] MID_GOAL = {34, 143, 19};
+    final public double[] NEAR_SHOT = {54, 142, 23};
+    final public double[] MID_SHOT = {61, 142, 23};
+    final public double[] FAR_SHOT = {68, 142, 23};
 
     final public double FLICKER_STANDBY = 0.485; // the position the flicker is at when its on standby to shoot something.
 
@@ -469,6 +469,10 @@ public class UltimateGoalRobot {
         double rpm = 60000*clicks/(ms*this.CLICKS_PER_ROTATION);
         return rpm;
     }
+    public void set_turret_reload_position(){
+        turretBase.setPosition(0.51);
+        turretLevel.setPosition(0.3);
+    }
     public void aim_turret(int target) {
         ArrayList<Double> list = this.odometer.getCurrentCoordinates();
         double xdis, ydis, zdis;
@@ -500,11 +504,11 @@ public class UltimateGoalRobot {
         }
         xdis -= list.get(1);
         ydis -= list.get(2);
-        zdis -= 3; // turret is 6.5 inches off the ground when level, but the actual number can be adjusted for performance
+        zdis -= 7.5; // turret is 6.5 inches off the ground when level, but the actual number can be adjusted for performance
         this.program.telemetry.addData("xdis", xdis);
         this.program.telemetry.addData("ydis", ydis);
         double angle = (list.get(0) + 360) % 360;
-        double needed_angle = (-Math.atan2(xdis, ydis) * 180 / Math.PI + 193) % 360; // we add 193 degrees instead of 180 because the ring comes out the shooter a little to the right.
+        double needed_angle = (-Math.atan2(xdis, ydis) * 180 / Math.PI + 192) % 360; // we add 192 degrees instead of 180 because the ring comes out the shooter a little to the right.
         double diff = needed_angle - angle;
         turretBase.setPosition(0.5 - (diff / 170));
 

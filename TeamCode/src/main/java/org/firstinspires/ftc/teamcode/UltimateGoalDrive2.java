@@ -138,7 +138,7 @@ public class UltimateGoalDrive2 extends LinearOpMode {
             if (gamepad1.y) {
                 robot.intakeBar.setPosition(1);
             } else if (gamepad1.a) {
-                robot.intakeBar.setPosition(0);
+                robot.intakeBar.setPosition(0.07);
             }
 
 
@@ -201,8 +201,7 @@ public class UltimateGoalDrive2 extends LinearOpMode {
                 turret_idle = false;
             }
             if (turret_idle) {
-                robot.turretBase.setPosition(0.51);
-                robot.turretLevel.setPosition(0.26);
+                robot.set_turret_reload_position();
             } else if (gamepad2.x) {
                 robot.aim_turret(1);
             } else if (gamepad2.y) {
