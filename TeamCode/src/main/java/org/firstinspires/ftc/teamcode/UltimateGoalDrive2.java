@@ -138,7 +138,7 @@ public class UltimateGoalDrive2 extends LinearOpMode {
             if (gamepad1.y) {
                 robot.intakeBar.setPosition(1);
             } else if (gamepad1.a) {
-                robot.intakeBar.setPosition(0.07);
+                robot.intakeBar.setPosition(0.25);
             }
 
 
