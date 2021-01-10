@@ -33,8 +33,9 @@ public class UltimateGoalRobot {
     private double last_flywheel_clicks = 0;
     private double last_flywheel_ms = System.currentTimeMillis();
     private double target_flywheel_power = -0.81;
-    public double best_flywheel_velocity = -2000;  // 4300rpm * CLICKS_PER_ROTATION / 60 seconds per minute
+    final public double best_flywheel_velocity = -2000;  // 4300rpm * CLICKS_PER_ROTATION / 60 seconds per minute
     final public double CLICKS_PER_ROTATION = 28;
+    final public double best_intakeBar_down_position = 0.2;
     public DcMotor wobbleLift;
 
     public Odometry odometer;
@@ -45,7 +46,7 @@ public class UltimateGoalRobot {
     public Servo claw1;
     public Servo claw2;
     public Servo wobbleRelease;
-    public Servo intakeBar; // 1 is up, 0 is down.
+    public Servo intakeBar; // 1 is up, 0.2 is down.
     public Orientation angles; // used to get info from BNO055IMU
 
     HardwareMap hardwareMap;  // used to link code objects to real objects.

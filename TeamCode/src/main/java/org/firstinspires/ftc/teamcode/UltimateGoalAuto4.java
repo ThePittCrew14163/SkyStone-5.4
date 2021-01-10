@@ -283,7 +283,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.odometer.odSleep(220);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
-            robot.intakeBar.setPosition(0.2);
+            robot.intakeBar.setPosition(robot.best_intakeBar_down_position);
 
             /////// POWER SHOT 3 ///////
             robot.aim_turret(9);

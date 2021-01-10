@@ -56,7 +56,7 @@ public class UltimateGoalDrive2 extends LinearOpMode {
         waitForStart();
         robot.flicker.setPosition(robot.FLICKER_STANDBY);
         robot.wrist.setPosition(1);
-        robot.intakeBar.setPosition(0);
+        robot.intakeBar.setPosition(robot.best_intakeBar_down_position);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -138,7 +138,7 @@ public class UltimateGoalDrive2 extends LinearOpMode {
             if (gamepad1.y) {
                 robot.intakeBar.setPosition(1);
             } else if (gamepad1.a) {
-                robot.intakeBar.setPosition(0.25);
+                robot.intakeBar.setPosition(robot.best_intakeBar_down_position);
             }
 
 
