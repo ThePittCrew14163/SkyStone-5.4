@@ -152,12 +152,19 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             /////////////// PLACE SECOND WOBBLE GOAL //////////////////////////////////////////////////////
             robot.odStrafe(90, 1, 48, 68, 9);
             robot.odStrafe(20, 1, 44, 87, 9, 160);
-            robot.odStrafe(0, 0.55, 30, 88, 3, 100, 3000);
+            robot.odStrafe(0, 0.6, 30, 87, 3, 100, 3000);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.wrist.setPosition(0.3);
-            robot.motorTurnNoReset(1, -400, robot.wobbleLift);
+            robot.motorTurnNoReset(1, -700, robot.wobbleLift);
             robot.odStrafe(-35, 0.6, 35, 73, 5);
+
+            //////////////////////// PARK /////////////////////////////////////////////////////////////////
+            robot.motorTurnNoReset(1, -700, robot.wobbleLift);
+            robot.wrist.setPosition(1);
+            robot.claw1.setPosition(0.5);
+            robot.claw2.setPosition(0.5);
+            robot.odStrafe(0, 0.8, 90, 73, 1, 50, 3000);
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -216,7 +223,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.odometer.odSleep(850);
-            robot.odStrafe(125, 1, 40, 56, 8, 100);
+            robot.odStrafe(125, 1, 40, 50, 8, 100);
             robot.odStrafe(115, 1, 42, 32, 5, 50, 2300);
             robot.claw1.setPosition(0.265);
             robot.claw2.setPosition(0.735);
@@ -225,6 +232,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.wrist.setPosition(0.05);
 
             /////////////// PLACE SECOND WOBBLE GOAL //////////////////////////////////////////////////////
+            robot.odTurn(90, 1, 500);
             robot.odStrafe(90, 1, 48, 68, 8);
             // SHOOT RING //
             robot.flywheel.setVelocity(robot.best_flywheel_velocity);
@@ -240,14 +248,21 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.flywheel.setVelocity(0);
 
             // PLACE WOBBLE GOAL
-            robot.odStrafe(-140, 1, 35, 86, 4, 200);
+            robot.odStrafe(-180, 1, 33, 93, 4, 200);
             robot.odTurn(-90, 0.9, 1600);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.odometer.odSleep(300);
-            robot.motorTurnNoReset(1, -400, robot.wobbleLift);
+            robot.motorTurnNoReset(1, -700, robot.wobbleLift);
             robot.odStrafe(-120, 1, 31, 70, 5, 120);
             robot.odStrafe(0, 1, 23, 73, 5);
+
+            //////////////////////// PARK /////////////////////////////////////////////////////////////////
+            robot.motorTurnNoReset(1, -700, robot.wobbleLift);
+            robot.wrist.setPosition(1);
+            robot.claw1.setPosition(0.5);
+            robot.claw2.setPosition(0.5);
+            robot.odStrafe(0, 0.64, 9, 73, 1, 50, 3000);
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -300,19 +315,19 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             // FIRST, PICK UP STARTER RINGS //
             robot.set_turret_reload_position();
             robot.encoderX.setPower(1);
-            robot.odStrafe(-180, 0.45, 36, 53, 4, 120);
+            robot.odStrafe(-180, 0.45, 36, 57, 4, 120);
             robot.odometer.odSleep(600);
-            robot.odStrafe(-180, 0.45, 36, 49, 3, 120);
+            robot.odStrafe(-180, 0.45, 36, 54, 3, 120);
             robot.odometer.odSleep(600);
-            robot.odStrafe(-180, 0.45, 36, 46, 3, 120);
+            robot.odStrafe(-180, 0.45, 36, 50, 3, 120);
 
             // NOW GO GRAB WOBBLE GOAL //
             robot.motorTurnNoReset(1, 2600, robot.wobbleLift);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.odometer.odSleep(850);
-            robot.odStrafe(125, 1, 40, 46, 8, 100);
-            robot.odStrafe(115, 1, 43, 32, 5, 50, 2100);
+            robot.odStrafe(100, 1, 45, 45, 8, 100);
+            robot.odStrafe(90, 1, 48, 32, 5, 50, 2100);
             robot.claw1.setPosition(0.265);
             robot.claw2.setPosition(0.735);
             robot.odometer.odSleep(500);
@@ -340,18 +355,17 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.odStrafe(0, 1, 36, 117, 6);
-            robot.motorTurnNoReset(1, -400, robot.wobbleLift);
+            robot.motorTurnNoReset(1, -700, robot.wobbleLift);
             robot.wrist.setPosition(0.3);
             robot.odStrafe(0, 1, 16, 82, 8);
+
+            //////////////////////// PARK /////////////////////////////////////////////////////////////////
+            robot.motorTurnNoReset(1, -700, robot.wobbleLift);
+            robot.wrist.setPosition(1);
+            robot.claw1.setPosition(0.5);
+            robot.claw2.setPosition(0.5);
+            robot.odStrafe(0, 0.64, 9, 73, 1, 50, 3000);
         }
-
-
-        //////////////////////// PARK /////////////////////////////////////////////////////////////////
-        robot.motorTurnNoReset(1, -400, robot.wobbleLift);
-        robot.wrist.setPosition(1);
-        robot.claw1.setPosition(0.5);
-        robot.claw2.setPosition(0.5);
-        robot.odStrafe(0, 0.64, 9, 73, 1, 50, 3000);
     }
 
 
