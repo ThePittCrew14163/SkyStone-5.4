@@ -62,55 +62,55 @@ public class Odometry {
         this.x_encoder.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
     public ArrayList<Double> getCurrentCoordinates() {
-        // returns the current angle, x and y coordinates relative to where the robot started.
-        // x and y are in inches.
+            // returns the current angle, x and y coordinates relative to where the robot started.
+            // x and y are in inches.
 
-        // save previous coordinates
-        this.last_angle = this.angle;
-        this.last_x = this.x;
-        this.last_y = this.y;
+            // save previous coordinates
+            this.last_angle = this.angle;
+            this.last_x = this.x;
+            this.last_y = this.y;
 
-        // get distance travelled by each wheel since last check and then save current clicks for each wheel.
-        double yc = this.y_encoder.getCurrentPosition();
-        double hy = (this.last_y_clicks - yc) / this.CLICKS_PER_INCH;
-        this.last_y_clicks = yc;
-        double xc = this.x_encoder.getCurrentPosition(); // xc = x wheel clicks
-        double hx = (this.last_x_clicks - xc) / this.CLICKS_PER_INCH;  // hx = distance traveled in the last frame by the x wheel
-        this.last_x_clicks = xc;
-        // get new angle
-        try { this.angle = this.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle - this.angle_adjust; }
-        catch (Exception e) { this.angle = -this.angle_adjust; }
+            // get distance travelled by each wheel since last check and then save current clicks for each wheel.
+            double yc = this.y_encoder.getCurrentPosition();
+            double hy = (this.last_y_clicks - yc) / this.CLICKS_PER_INCH;
+            this.last_y_clicks = yc;
+            double xc = this.x_encoder.getCurrentPosition(); // xc = x wheel clicks
+            double hx = (this.last_x_clicks - xc) / this.CLICKS_PER_INCH;  // hx = distance traveled in the last frame by the x wheel
+            this.last_x_clicks = xc;
+            // get new angle
+            try { this.angle = this.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle - this.angle_adjust; }
+            catch (Exception e) { this.angle = -this.angle_adjust; }
 
-        double dis = hy, theta = 0;
-        // calculate new position
-        // first check if the robot hasn't turned:
-        if (this.last_angle - this.angle == 0 || this.last_angle - this.angle == 360 || this.last_angle - this.angle == -360) {
-            this.x = last_x - (hy * Math.cos((angle+90)*Math.PI/180) + hx * Math.cos(angle*Math.PI/180));
-            this.y = last_y - (hy * Math.sin((angle+90)*Math.PI/180) + hx * Math.sin(angle*Math.PI/180));
+            double dis = hy, theta = 0;
+            // calculate new position
+            // first check if the robot hasn't turned:
+            if (this.last_angle - this.angle == 0 || this.last_angle - this.angle == 360 || this.last_angle - this.angle == -360) {
+                this.x = last_x - (hy * Math.cos((angle+90)*Math.PI/180) + hx * Math.cos(angle*Math.PI/180));
+                this.y = last_y - (hy * Math.sin((angle+90)*Math.PI/180) + hx * Math.sin(angle*Math.PI/180));
 
-        } else {
-            // the robot has turned and more complicated calculations are necessary.
-            double sign;
-            theta = (this.angle - this.last_angle)*Math.PI/180;
-            // if the robot goes from 179 to -180 or vice versa, we need to adjust for the wrap-around.
-            if (theta < 0) { sign = -1; } else { sign = 1; }
-            if (Math.abs(theta) > Math.PI) { theta = sign * (Math.PI*2 - Math.abs(theta)); }
+            } else {
+                // the robot has turned and more complicated calculations are necessary.
+                double sign;
+                theta = (this.angle - this.last_angle)*Math.PI/180;
+                // if the robot goes from 179 to -180 or vice versa, we need to adjust for the wrap-around.
+                if (theta < 0) { sign = -1; } else { sign = 1; }
+                if (Math.abs(theta) > Math.PI) { theta = sign * (Math.PI*2 - Math.abs(theta)); }
 
-            hx += theta*X_DIS_FROM_CENTER;  // if the x wheel is not at the center of the robot, some of its movement is actually part of the turn.
-            hy -= theta*Y_DIS_FROM_CENTER;
-            this.x = last_x - (hy * Math.cos((angle+90)*Math.PI/180-(theta/2)) + hx * Math.cos(angle*Math.PI/180-(theta/2)));
-            this.y = last_y - (hy * Math.sin((angle+90)*Math.PI/180-(theta/2)) + hx * Math.sin(angle*Math.PI/180-(theta/2)));
-        }
-        ArrayList<Double> list = new ArrayList<Double>();
-        list.add(this.angle);
-        list.add(this.x);
-        list.add(this.y);
-        list.add(hx);
-        list.add(hy);
-        list.add(dis);
-        list.add(theta);
-        list.add(theta*X_DIS_FROM_CENTER);
-        return list;
+                hx += theta*X_DIS_FROM_CENTER;  // if the x wheel is not at the center of the robot, some of its movement is actually part of the turn.
+                hy -= theta*Y_DIS_FROM_CENTER;
+                this.x = last_x - (hy * Math.cos((angle+90)*Math.PI/180-(theta/2)) + hx * Math.cos(angle*Math.PI/180-(theta/2)));
+                this.y = last_y - (hy * Math.sin((angle+90)*Math.PI/180-(theta/2)) + hx * Math.sin(angle*Math.PI/180-(theta/2)));
+            }
+            ArrayList<Double> list = new ArrayList<Double>();
+            list.add(this.angle);
+            list.add(this.x);
+            list.add(this.y);
+            list.add(hx);
+            list.add(hy);
+            list.add(dis);
+            list.add(theta);
+            list.add(theta*X_DIS_FROM_CENTER);
+            return list;
     }
     public void odSleep(int ms) {
         // tracks position while sleeping for ms milliseconds.
