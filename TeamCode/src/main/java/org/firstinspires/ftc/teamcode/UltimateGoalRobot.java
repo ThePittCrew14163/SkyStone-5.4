@@ -35,7 +35,7 @@ public class UltimateGoalRobot {
     private double target_flywheel_power = -0.81;
     final public double best_flywheel_velocity = -2000;  // 4300rpm * CLICKS_PER_ROTATION / 60 seconds per minute
     final public double CLICKS_PER_ROTATION = 28;
-    final public double best_intakeBar_down_position = 0.2;
+    final public double best_intakeBar_down_position = 0.27;
     public DcMotor wobbleLift;
 
     public Odometry odometer;
@@ -54,10 +54,10 @@ public class UltimateGoalRobot {
 
 
     // each coordinate is a len 3 array of x, y, and z. Starting point is audience/blue corner.
-    final public double[] HIGH_GOAL = {37, 143, 35};
+    final public double[] HIGH_GOAL = {35, 143, 35};
     final public double[] MID_GOAL = {36, 143, 19};
     final public double[] NEAR_SHOT = {54, 142, 23};
-    final public double[] MID_SHOT = {63, 142, 23};
+    final public double[] MID_SHOT = {62, 142, 23};
     final public double[] FAR_SHOT = {70, 142, 23};
 
     final public double FLICKER_STANDBY = 0.485; // the position the flicker is at when its on standby to shoot something.
