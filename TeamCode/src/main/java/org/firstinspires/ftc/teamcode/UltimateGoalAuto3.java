@@ -137,10 +137,10 @@ public class UltimateGoalAuto3 extends LinearOpMode {
             //////////////////// GRAB SECOND WOBBLE GOAL //////////////////////////////////////////////
             robot.wrist.setPosition(0);
             robot.odStrafe(135, 1, 45, 60, 8, 120);
-            robot.motorTurnNoReset(1, 3000, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 2800, robot.wobbleLift);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
-            robot.odometer.odSleep(700);
+            robot.odometer.odSleep(500);
             robot.odStrafe(90, 1, 47, 50, 8, 100);
             robot.odStrafe(90, 0.8, 48, 37, 4, 50, 2300);
             robot.claw1.setPosition(0.265);
@@ -219,10 +219,10 @@ public class UltimateGoalAuto3 extends LinearOpMode {
             robot.odStrafe(-180, 1, 35, 49, 6, 120);
 
             // NOW GO GRAB WOBBLE GOAL //
-            robot.motorTurnNoReset(1, 3000, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 2800, robot.wobbleLift);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
-            robot.odometer.odSleep(850);
+            robot.odometer.odSleep(500);
             robot.odStrafe(105, 1, 44, 40, 8, 100);
             robot.odStrafe(90, 1, 48, 32, 5, 150, 1500);
             robot.claw1.setPosition(0.265);
@@ -233,10 +233,9 @@ public class UltimateGoalAuto3 extends LinearOpMode {
 
             /////////////// PLACE SECOND WOBBLE GOAL //////////////////////////////////////////////////////
             robot.odTurn(180, 1, 500);
-            robot.odStrafe(180, 1, 48, 68, 8);
             // SHOOT RING //
             robot.flywheel.setVelocity(robot.best_flywheel_velocity);
-            robot.odStrafe(180, 0.9, 46, 54, 6, 200);
+            robot.odStrafe(180, 1, 46, 60, 6, 200);
             robot.odometer.odSleep(500);
             robot.aim_turret(-9);
             robot.odometer.odSleep(400);
@@ -271,7 +270,7 @@ public class UltimateGoalAuto3 extends LinearOpMode {
 
             /////////////// PLACE FIRST WOBBLE GOAL /////////////////////////////////////////////////
             robot.odStrafe(-10, 1, 26, 107, 11, 80);
-            robot.odStrafe(-5, 0.45, 27, 127, 4);
+            robot.odStrafe(-5, 0.45, 24, 127, 4);
             robot.wobbleRelease.setPosition(0.8);
             robot.odometer.odSleep(350);
             robot.odStrafe(0, 1, 32, 110, 7);
@@ -315,17 +314,17 @@ public class UltimateGoalAuto3 extends LinearOpMode {
             // FIRST, PICK UP STARTER RINGS //
             robot.set_turret_reload_position();
             robot.encoderX.setPower(1);
-            robot.odStrafe(-180, 0.45, 36, 57, 4, 120);
+            robot.odStrafe(-180, 0.45, 36, 57, 4, 120, 1500);
             robot.odometer.odSleep(600);
-            robot.odStrafe(-180, 0.45, 36, 54, 3, 120);
+            robot.odStrafe(-180, 0.45, 36, 54, 3, 120, 1500);
             robot.odometer.odSleep(600);
-            robot.odStrafe(-180, 0.4, 36, 51, 2, 120);
+            robot.odStrafe(-180, 0.4, 36, 51, 2, 120, 1500);
 
             // NOW GO GRAB WOBBLE GOAL //
-            robot.motorTurnNoReset(1, 3000, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 2800, robot.wobbleLift);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
-            robot.odometer.odSleep(850);
+            robot.odometer.odSleep(500);
             robot.odStrafe(100, 1, 45, 45, 8, 100);
             robot.odStrafe(90, 1, 48, 32, 5, 50, 2100);
             robot.claw1.setPosition(0.265);
@@ -336,7 +335,8 @@ public class UltimateGoalAuto3 extends LinearOpMode {
 
             // SHOOT RINGS //
             robot.flywheel.setVelocity(robot.best_flywheel_velocity);
-            robot.odStrafe(180, 0.8, 36, 60, 8, 175);
+            robot.odTurn(180, 1, 1000);
+            robot.odStrafe(180, 1, 36, 60,7);
             robot.odometer.odSleep(250);
             for (int i = 0; i < 3; i++) {
                 robot.odometer.odSleep(450);
@@ -388,7 +388,7 @@ public class UltimateGoalAuto3 extends LinearOpMode {
         static final int REGION_HEIGHT = 100;
 
         final int FOUR_RING_THRESHOLD = 143;
-        final int ONE_RING_THRESHOLD = 133;
+        final int ONE_RING_THRESHOLD = 134;
 
         Point region1_pointA = new Point(
                 REGION1_TOPLEFT_ANCHOR_POINT.x,

@@ -35,7 +35,7 @@ public class UltimateGoalRobot {
     private double target_flywheel_power = -0.81;
     final public double best_flywheel_velocity = -2000;  // 4300rpm * CLICKS_PER_ROTATION / 60 seconds per minute
     final public double CLICKS_PER_ROTATION = 28;
-    final public double best_intakeBar_down_position = 0.27;
+    final public double best_intakeBar_down_position = 0.2;
     public DcMotor wobbleLift;
 
     public Odometry odometer;
