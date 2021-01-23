@@ -280,9 +280,11 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.wobbleRelease.setPosition(0.4);
             robot.odStrafe(0, 1, 37, 88, 9);
             robot.odTurn(180, 1, 1300);
+            robot.wrist.setPosition(0.5);
             robot.odStrafe(180, 1, 36, 74, 5);
             robot.odStrafe(180, 0.45, 36, 67, 3);
 
+            robot.odometer.odSleep(400);
             /////// POWER SHOT 1 ///////
             robot.aim_turret(9);
             robot.odometer.odSleep(400);
@@ -382,12 +384,12 @@ public class UltimateGoalAuto4 extends LinearOpMode {
         /*
          * The core values which define the location and size of the sample regions
          */
-        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(225, 425);
+        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(225, 430);
 
         static final int REGION_WIDTH = 100;
         static final int REGION_HEIGHT = 100;
 
-        final int FOUR_RING_THRESHOLD = 143;
+        final int FOUR_RING_THRESHOLD = 142;
         final int ONE_RING_THRESHOLD = 134;
 
         Point region1_pointA = new Point(
