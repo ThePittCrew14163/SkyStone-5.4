@@ -54,7 +54,7 @@ public class UltimateGoalRobot {
 
 
     // each coordinate is a len 3 array of x, y, and z. Starting point is audience/blue corner.
-    final public double[] HIGH_GOAL = {37, 143, 35};
+    final public double[] HIGH_GOAL = {36, 143, 35.5};
     final public double[] MID_GOAL = {36, 143, 19};
     final public double[] NEAR_SHOT = {54, 142, 23};
     final public double[] MID_SHOT = {62, 142, 23};
