@@ -46,7 +46,7 @@ public class UltimateGoalRobot {
     public Servo claw1;
     public Servo claw2;
     public Servo wobbleRelease;
-    public Servo intakeBar; // 1 is up, 0.2 is down.
+    public Servo intakeBar; // 1 is up, 0.27 is down.
     public Orientation angles; // used to get info from BNO055IMU
 
     HardwareMap hardwareMap;  // used to link code objects to real objects.
@@ -497,6 +497,23 @@ public class UltimateGoalRobot {
             xdis = MID_GOAL[0];
             ydis = MID_GOAL[1];
             zdis = MID_GOAL[2];
+
+        } else if (target == -1) {
+            // NEAR SHOT LOW
+            xdis = NEAR_SHOT[0];
+            ydis = NEAR_SHOT[1];
+            zdis = NEAR_SHOT[2]-1.5;
+        } else if (target == -2) {
+            // MID SHOT LOW
+            xdis = MID_SHOT[0];
+            ydis = MID_SHOT[1];
+            zdis = MID_SHOT[2]-1.5;
+        } else if (target == -3) {
+            // FAR SHOT LOW
+            xdis = FAR_SHOT[0];
+            ydis = FAR_SHOT[1];
+            zdis = FAR_SHOT[2]-1.5;
+
         } else {
             // HIGH GOAL
             xdis = HIGH_GOAL[0];
