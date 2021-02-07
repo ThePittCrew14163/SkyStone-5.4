@@ -35,7 +35,7 @@ public class UltimateGoalRobot {
     private double target_flywheel_power = -0.81;
     final public double best_flywheel_velocity = -2000;  // 4300rpm * CLICKS_PER_ROTATION / 60 seconds per minute
     final public double CLICKS_PER_ROTATION = 28;
-    final public double best_intakeBar_down_position = 0.25;
+    final public double best_intakeBar_down_position = 0.27;
     public DcMotor wobbleLift;
 
     public Odometry odometer;
@@ -60,7 +60,7 @@ public class UltimateGoalRobot {
     final public double[] MID_SHOT = {62, 142, 23};
     final public double[] FAR_SHOT = {70, 142, 23};
 
-    final public double FLICKER_STANDBY = 0.485; // the position the flicker is at when its on standby to shoot something.
+    final public double FLICKER_STANDBY = 0.5; // the position the flicker is at when its on standby to shoot something.
 
     public void init(HardwareMap hardwareMap, LinearOpMode program) {
         // SET UP IMU AS BNO055IMU:

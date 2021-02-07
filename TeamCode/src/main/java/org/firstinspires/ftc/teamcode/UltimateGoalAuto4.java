@@ -114,21 +114,21 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.aim_turret(-9);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
-            robot.odometer.odSleep(220);
+            robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 2 ///////
             robot.aim_turret(-9);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
-            robot.odometer.odSleep(220);
+            robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 3 ///////
             robot.aim_turret(-9);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
-            robot.odometer.odSleep(220);
+            robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             robot.odometer.odSleep(200);
@@ -192,21 +192,21 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.aim_turret(-9);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
-            robot.odometer.odSleep(220);
+            robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 2 ///////
             robot.aim_turret(-9);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
-            robot.odometer.odSleep(220);
+            robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 3 ///////
             robot.aim_turret(-9);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
-            robot.odometer.odSleep(220);
+            robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             robot.odometer.odSleep(200);
@@ -233,7 +233,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.wrist.setPosition(0.05);
 
             /////////////// PLACE SECOND WOBBLE GOAL //////////////////////////////////////////////////////
-            robot.odTurn(180, 1, 500);
+            robot.odTurn(180, 1, 800);
             // SHOOT RING //
             robot.flywheel.setVelocity(robot.best_flywheel_velocity);
             robot.odStrafe(180, 1, 46, 60, 6, 200);
@@ -242,7 +242,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.odometer.odSleep(400);
             robot.aim_turret(-9);
             robot.flicker.setPosition(1);
-            robot.odometer.odSleep(220);
+            robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
             robot.odometer.odSleep(220);
             robot.flywheel.setVelocity(0);
@@ -290,14 +290,14 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.aim_turret(9);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
-            robot.odometer.odSleep(220);
+            robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 2 ///////
             robot.aim_turret(9);
             robot.odometer.odSleep(300);
             robot.flicker.setPosition(1);
-            robot.odometer.odSleep(220);
+            robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             robot.intakeBar.setPosition(robot.best_intakeBar_down_position);
@@ -306,7 +306,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.aim_turret(9);
             robot.odometer.odSleep(300);
             robot.flicker.setPosition(1);
-            robot.odometer.odSleep(220);
+            robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             robot.flywheel.setVelocity(0);
@@ -341,12 +341,12 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.odTurn(180, 1, 1000);
             robot.odStrafe(180, 1, 36, 60,7);
             robot.odometer.odSleep(250);
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 3; i++) {
                 robot.odometer.odSleep(450);
                 robot.aim_turret(-9);
                 robot.odometer.odSleep(200);
                 robot.flicker.setPosition(1);
-                robot.odometer.odSleep(220);
+                robot.odometer.odSleep(250);
                 robot.flicker.setPosition(robot.FLICKER_STANDBY);
             }
             robot.flywheel.setVelocity(0);
@@ -385,7 +385,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
         /*
          * The core values which define the location and size of the sample regions
          */
-        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(225, 430);
+        static final Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(220, 430);
 
         static final int REGION_WIDTH = 100;
         static final int REGION_HEIGHT = 100;
