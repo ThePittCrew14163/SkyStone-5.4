@@ -14,28 +14,20 @@ public class RingFinderPipeline extends OpenCvPipeline {
     private ArrayList<Mat> boxes = new ArrayList<Mat>();
     public int[] positions = {0, 0}; // up to two rings to get from a position
 
-    private int numBoxes = 15;
+    private int numBoxes = 9;
     public double[] threshholds = new double[numBoxes]; // the threshholds for each box
 
-    private int boxWidth = 25;
-    private int boxHeight = 80;
-    private int startX = 100;
-    private int boxY = 450;
+    private int boxWidth = 50;
+    private int boxHeight = 100;
+    private int boxArea = boxWidth*boxHeight;
+    private int startX = 29;
+    private int boxY = 470;
 
-    private double isRingThreshhold = 135;
+    private double isRingThreshhold = 105;
+    public String s = "nothing so far";
 
-    public RingFinderPipeline() {
-        // Sets up boxes for looking around the field
-        for (int i = 0; i < numBoxes; i++){
-            // workingMatrix.submat(rowStart, rowEnd, colStart, colEnd)
-            int rowStart = startX+(boxWidth*i);
-            int rowEnd = rowStart + boxWidth;
-            int colStart = boxY;
-            int colEnd = boxY + boxHeight;
-            boxes.add(workingMatrix.submat(rowStart, rowEnd, colStart, colEnd));
-            Imgproc.rectangle(workingMatrix, new Rect(rowStart, rowEnd, colStart, colEnd), new Scalar(0,255,0), 2);
-        }
-    }
+    //public RingFinderPipeline() {}
+
 
     @Override
     public final Mat processFrame(Mat input) {
@@ -44,35 +36,42 @@ public class RingFinderPipeline extends OpenCvPipeline {
         if (workingMatrix.empty()) {
             return input;
         }
-
+        s = "";
         Imgproc.cvtColor(workingMatrix, workingMatrix, Imgproc.COLOR_RGB2YCrCb);
 
-        //Mat matLeft = workingMatrix.submat(boxY, boxY+boxHeight, leftBoxX, leftBoxX+boxWidth);
-        //Mat matCenter = workingMatrix.submat(boxY, boxY+boxHeight, centerBoxX, centerBoxX+boxWidth);
-        //Mat matRight = workingMatrix.submat(boxY, boxY+boxHeight, rightBoxX, rightBoxX+boxWidth);
-
-        //Imgproc.rectangle(workingMatrix, new Rect(leftBoxX, boxY, boxWidth, boxHeight), new Scalar(0,255,0));
-        //Imgproc.rectangle(workingMatrix, new Rect(centerBoxX, boxY, boxWidth, boxHeight), new Scalar(0,255,0));
-        //Imgproc.rectangle(workingMatrix, new Rect(rightBoxX, boxY, boxWidth, boxHeight), new Scalar(0,255,0));
-
-        //double leftTotal = Core.sumElems(matLeft).val[2];
-        //double centerTotal = Core.sumElems(matCenter).val[2];
-        //double rightTotal = Core.sumElems(matRight).val[2];
+        // Sets up boxes for looking around the field
+        boxes.clear();
+        for (int i = 0; i < numBoxes; i++){
+            // workingMatrix.submat(rowStart, rowEnd, colStart, colEnd) row is y col is x
+            int colStart = startX+(boxWidth*i);
+            int colEnd = colStart + boxWidth;
+            int rowStart = boxY;
+            int rowEnd = boxY + boxHeight;
+            try {
+                Mat newMat = workingMatrix.submat(rowStart, rowEnd, colStart, colEnd);
+                boxes.add(newMat);
+            } catch (Exception e) {
+                this.s += "Bad "+i;
+            }
+            Imgproc.rectangle(workingMatrix, new Rect(colStart, rowStart, boxWidth, boxHeight), new Scalar(0, 255, 0), 2);
+        }
 
         int count = 0, bestPosition = 0, secondBestPosition = 0;
-        double bestPositionValue = 0, secondBestPositionValue = 0;
+        double bestPositionValue = 100, secondBestPositionValue = 100;
         double boxValue;
 
         // Loop through every box where the robot looks for rings and find the places where there are most likely rings
+        // The value we're looking at is lowest in the presence of rings
         for (Mat box : this.boxes) {
-            boxValue = Core.sumElems(box).val[2];
+            boxValue = Core.sumElems(box).val[2]/boxArea;
             threshholds[count] = boxValue;
-            if (boxValue > isRingThreshhold){
-                if (boxValue > bestPositionValue){
+            if (boxValue < isRingThreshhold){
+                if (boxValue < bestPositionValue){
                     secondBestPositionValue = bestPositionValue;
+                    secondBestPosition = bestPosition;
                     bestPositionValue = boxValue;
                     bestPosition = count;
-                } else if (boxValue > secondBestPositionValue){
+                } else if (boxValue < secondBestPositionValue){
                     secondBestPositionValue = boxValue;
                     secondBestPosition = count;
                 }

@@ -88,18 +88,24 @@ public class TestRingFinder extends LinearOpMode {
             sleep(50);
         }
 
-        robot.intakeBar.setPosition(0.5);
-        robot.odometer.odSleep(1200);
+        phoneCam.stopStreaming();
+
         pipeline2 = new RingFinderPipeline();
         phoneCam.setPipeline(pipeline2);
-        robot.odometer.odSleep(100);
-        telemetry.addData("Position 1", pipeline2.positions[0]);
-        telemetry.addData("Position 2", pipeline2.positions[1]);
-        int count = 0;
-        for (double threshhold : pipeline2.threshholds){
-            telemetry.addData("Threshhold"+count, threshhold);
+        robot.intakeBar.setPosition(1);
+
+        phoneCam.startStreaming(720, 480, OpenCvCameraRotation.UPSIDE_DOWN);
+        robot.intakeBar.setPosition(1);
+        while (!isStopRequested()) {
+            telemetry.addData("s", pipeline2.s);
+            telemetry.addData("Position 1", pipeline2.positions[0]);
+            telemetry.addData("Position 2", pipeline2.positions[1]);
+            int count = 0;
+            for (double threshhold : pipeline2.threshholds) {
+                telemetry.addData("Threshhold" + count, threshhold);
+            }
+            telemetry.update();
         }
-        telemetry.update();
 
     }
 
