@@ -14,16 +14,16 @@ public class RingFinderPipeline extends OpenCvPipeline {
     private ArrayList<Mat> boxes = new ArrayList<Mat>();
     public int[] positions = {0, 0}; // up to two rings to get from a position
 
-    private int numBoxes = 9;
+    private int numBoxes = 7;
     public double[] threshholds = new double[numBoxes]; // the threshholds for each box
 
-    private int boxWidth = 53;
+    private int boxWidth = 68;
     private int boxHeight = 110;
     private int boxArea = boxWidth*boxHeight;
-    private int startX = 1;
+    private int startX = 2;
     private int boxY = 460;
 
-    private double isRingThreshhold = 108;
+    private double isRingThreshhold = 110;
     public String s = "nothing so far";
 
     //public RingFinderPipeline() {}
@@ -80,10 +80,10 @@ public class RingFinderPipeline extends OpenCvPipeline {
                     secondBestPosition = count;
                 }
                 // because a ring can fill two boxes, don't allow two adjacent boxes to be selected.
-                if (Math.abs(secondBestPosition-bestPosition) <= 1) {
-                    secondBestPosition = -1;
-                    secondBestPositionValue = 125;
-                }
+                //if (Math.abs(secondBestPosition-bestPosition) <= 1) {
+                //    secondBestPosition = -1;
+                //    secondBestPositionValue = 125;
+                //}
             }
             count++;
         }
