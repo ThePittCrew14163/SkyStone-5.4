@@ -17,13 +17,13 @@ public class RingFinderPipeline extends OpenCvPipeline {
     private int numBoxes = 9;
     public double[] threshholds = new double[numBoxes]; // the threshholds for each box
 
-    private int boxWidth = 50;
-    private int boxHeight = 100;
+    private int boxWidth = 53;
+    private int boxHeight = 110;
     private int boxArea = boxWidth*boxHeight;
-    private int startX = 29;
-    private int boxY = 470;
+    private int startX = 1;
+    private int boxY = 460;
 
-    private double isRingThreshhold = 105;
+    private double isRingThreshhold = 108;
     public String s = "nothing so far";
 
     //public RingFinderPipeline() {}
@@ -56,8 +56,8 @@ public class RingFinderPipeline extends OpenCvPipeline {
             Imgproc.rectangle(workingMatrix, new Rect(colStart, rowStart, boxWidth, boxHeight), new Scalar(0, 255, 0), 2);
         }
 
-        int count = 0, bestPosition = 0, secondBestPosition = 0;
-        double bestPositionValue = 100, secondBestPositionValue = 100;
+        int count = 0, bestPosition = -1, secondBestPosition = -1;
+        double bestPositionValue = 125, secondBestPositionValue = 125;
         double boxValue;
 
         // Loop through every box where the robot looks for rings and find the places where there are most likely rings
@@ -67,25 +67,30 @@ public class RingFinderPipeline extends OpenCvPipeline {
             threshholds[count] = boxValue;
             if (boxValue < isRingThreshhold){
                 if (boxValue < bestPositionValue){
+                    // If the best position has been surpassed, what used to be best is now second best
                     secondBestPositionValue = bestPositionValue;
                     secondBestPosition = bestPosition;
+                    // save new best position
                     bestPositionValue = boxValue;
                     bestPosition = count;
+
                 } else if (boxValue < secondBestPositionValue){
+                    // if the probability isn't a new best, but is better than the current second best, save it as the second best.
                     secondBestPositionValue = boxValue;
                     secondBestPosition = count;
+                }
+                // because a ring can fill two boxes, don't allow two adjacent boxes to be selected.
+                if (Math.abs(secondBestPosition-bestPosition) <= 1) {
+                    secondBestPosition = -1;
+                    secondBestPositionValue = 125;
                 }
             }
             count++;
         }
 
         // determine if there are positions for the robot to go get rings
-        if (bestPositionValue > 0){
-            positions[0] = bestPosition;
-        }
-        if (secondBestPositionValue > 0){
-            positions[1] = secondBestPosition;
-        }
+        positions[0] = bestPosition;
+        positions[1] = secondBestPosition;
 
         return workingMatrix;
     }

@@ -36,14 +36,15 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-@Autonomous(name="Ultimate Goal High Goal")
-public class UltimateGoalAuto4 extends LinearOpMode {
+@Autonomous(name="Ultimate Goal Super Powershots")
+public class UltimateGoalAuto5 extends LinearOpMode {
     // NOTE: THE ROBOT STARTS ON THE FAR BLUE LINE WITH ITS MIDDLE LEFT CHASSIS EXTRUSION OVER THE LINE.
     // NOTE: EXTRUSION THAT HOLDS WOBBLE GOAL GRABBER WRIST LINES UP AT THE SAME HEIGHT WITH PIECE OF YELLOW TAPE THAT JOSH PUT THERE.
     // NOTE: MOST OF THE VISION CODE WAS COPIED FROM 9794 WIZARDS.EXE.
     UltimateGoalRobot robot = new UltimateGoalRobot();
     OpenCvInternalCamera phoneCam;
     RingDeterminationPipeline pipeline;
+    RingFinderPipeline pipeline2; // 14163 custom ring finder
     private RingPosition ringPosition;
 
     @Override
@@ -92,40 +93,41 @@ public class UltimateGoalAuto4 extends LinearOpMode {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////////// POSITION A (NO RINGS) 71pt /////////////////////////////////////////////////////////////////////////
+        /////////////////////// POSITION A (NO RINGS) 80-104pt /////////////////////////////////////////////////////////////////////////
         if (this.ringPosition == RingPosition.NONE) {
 
             /////////////// PLACE FIRST WOBBLE GOAL /////////////////////////////////////////////////
-            robot.odStrafe(-5, 1, 23, 63, 9, 80);
+            robot.odStrafe(-5, 1, 23, 62, 9, 80);
             robot.odStrafe(0, 0.42, 21, 78, 3);
             robot.wobbleRelease.setPosition(0.8);
-            robot.odometer.odSleep(350);
+            robot.odometer.odSleep(300);
 
             //////////////////////// HIT POWER SHOTS ////////////////////////////////////////////////
             robot.flywheel.setVelocity(robot.best_flywheel_velocity);
-            robot.odStrafe(0, 1, 35, 66, 8);
-            robot.odStrafe(0, 0.5, 44, 62, 4);
+            robot.odStrafe(0, 1, 37, 66, 8);
+            robot.odStrafe(0, 0.5, 48, 62, 4);
             robot.wobbleRelease.setPosition(0.4);
             robot.wrist.setPosition(0.5);
             robot.odTurn(170, 1, 1300);
 
+            /////// Shoots low to bounce the rings back in the field ///////
             /////// POWER SHOT 1 ///////
             robot.odometer.odSleep(400);
-            robot.aim_turret(-9);
+            robot.aim_turret(-1);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
             robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 2 ///////
-            robot.aim_turret(-9);
+            robot.aim_turret(-2);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
             robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 3 ///////
-            robot.aim_turret(-9);
+            robot.aim_turret(-3);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
             robot.odometer.odSleep(250);
@@ -140,7 +142,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.motorTurnNoReset(1, 2800, robot.wobbleLift);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
-            robot.odometer.odSleep(500);
+            robot.odometer.odSleep(400);
             robot.odStrafe(90, 1, 47, 50, 8, 100);
             robot.odStrafe(90, 0.8, 48, 37, 4, 50, 2300);
             robot.claw1.setPosition(0.265);
@@ -169,7 +171,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////////// POSITION B (ONE RING) 83pt /////////////////////////////////////////////////////////////////////////
+        /////////////////////// POSITION B (ONE RING) 92pt /////////////////////////////////////////////////////////////////////////
         else if (this.ringPosition == RingPosition.ONE) {
 
             /////////////// PLACE FIRST WOBBLE GOAL /////////////////////////////////////////////////
@@ -189,21 +191,21 @@ public class UltimateGoalAuto4 extends LinearOpMode {
 
             /////// POWER SHOT 1 ///////
             robot.odometer.odSleep(300);
-            robot.aim_turret(-9);
+            robot.aim_turret(1);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
             robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 2 ///////
-            robot.aim_turret(-9);
+            robot.aim_turret(2);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
             robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 3 ///////
-            robot.aim_turret(-9);
+            robot.aim_turret(3);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
             robot.odometer.odSleep(250);
@@ -233,7 +235,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.wrist.setPosition(0.05);
 
             /////////////// PLACE SECOND WOBBLE GOAL //////////////////////////////////////////////////////
-            robot.odTurn(180, 1, 800);
+            robot.odTurn(180, 1, 1100);
             // SHOOT RING //
             robot.flywheel.setVelocity(robot.best_flywheel_velocity);
             robot.odStrafe(180, 1, 46, 60, 6, 200);
@@ -266,7 +268,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////////// POSITION C (FOUR RINGS) 107pt /////////////////////////////////////////////////////////////////////////
+        /////////////////////// POSITION C (FOUR RINGS) 116pt /////////////////////////////////////////////////////////////////////////
         else {
 
             /////////////// PLACE FIRST WOBBLE GOAL /////////////////////////////////////////////////
@@ -287,14 +289,14 @@ public class UltimateGoalAuto4 extends LinearOpMode {
 
             robot.odometer.odSleep(200);
             /////// POWER SHOT 1 ///////
-            robot.aim_turret(9);
+            robot.aim_turret(1);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
             robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 2 ///////
-            robot.aim_turret(9);
+            robot.aim_turret(2);
             robot.odometer.odSleep(300);
             robot.flicker.setPosition(1);
             robot.odometer.odSleep(250);
@@ -303,7 +305,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.intakeBar.setPosition(robot.best_intakeBar_down_position);
 
             /////// POWER SHOT 3 ///////
-            robot.aim_turret(9);
+            robot.aim_turret(3);
             robot.odometer.odSleep(300);
             robot.flicker.setPosition(1);
             robot.odometer.odSleep(250);
