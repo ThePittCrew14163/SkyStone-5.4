@@ -103,7 +103,8 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.odometer.odSleep(300);
 
             //////////////////////// HIT POWER SHOTS ////////////////////////////////////////////////
-            robot.flywheel.setVelocity(robot.best_flywheel_velocity);
+            robot.flywheel.setVelocity(robot.best_flywheel_velocity-250); // robot shoots low and slower
+            //                  to increase chance that rings bounce off the powershots back into the field.
             robot.odStrafe(0, 1, 37, 66, 8);
             robot.odStrafe(0, 0.5, 48, 62, 4);
             robot.wobbleRelease.setPosition(0.4);
@@ -113,21 +114,21 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             /////// Shoots low to bounce the rings back in the field ///////
             /////// POWER SHOT 1 ///////
             robot.odometer.odSleep(400);
-            robot.aim_turret(-1);
+            robot.aim_turret(1);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
             robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 2 ///////
-            robot.aim_turret(-2);
+            robot.aim_turret(2);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
             robot.odometer.odSleep(250);
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 3 ///////
-            robot.aim_turret(-3);
+            robot.aim_turret(3);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
             robot.odometer.odSleep(250);
@@ -138,13 +139,12 @@ public class UltimateGoalAuto5 extends LinearOpMode {
 
             //////////////////// GRAB SECOND WOBBLE GOAL //////////////////////////////////////////////
             robot.wrist.setPosition(0);
-            robot.odStrafe(135, 1, 45, 60, 8, 120);
             robot.motorTurnNoReset(1, 2800, robot.wobbleLift);
+            robot.odStrafe(180, 1, 46, 54, 8, 120);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
-            robot.odometer.odSleep(400);
             robot.odStrafe(90, 1, 47, 50, 8, 100);
-            robot.odStrafe(90, 0.8, 48, 37, 4, 50, 2300);
+            robot.odStrafe(90, 1, 48, 37, 4, 50, 2000);
             robot.claw1.setPosition(0.265);
             robot.claw2.setPosition(0.735);
             robot.odometer.odSleep(500);
@@ -152,22 +152,84 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.wrist.setPosition(0.05);
 
             /////////////// PLACE SECOND WOBBLE GOAL //////////////////////////////////////////////////////
-            robot.odStrafe(90, 1, 48, 68, 9);
-            robot.odStrafe(20, 1, 44, 84, 9, 160);
-            robot.odStrafe(0, 0.7, 29, 84, 3, 100, 3000);
+            robot.odTurn(-150, 1, 700);
+            robot.odStrafe(-150, 1, 33, 66, 8, 160);
+            robot.odStrafe(-150, 0.7, 30, 74, 3, 100, 3000);
+            robot.odTurn(-40, 1, 800);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.wrist.setPosition(0.3);
             robot.motorTurnNoReset(1, -700, robot.wobbleLift);
-            robot.odStrafe(-35, 0.6, 35, 73, 5);
+            robot.odometer.odSleep(500);
 
-            //////////////////////// PARK /////////////////////////////////////////////////////////////////
-            robot.motorTurnNoReset(1, -700, robot.wobbleLift);
-            robot.odStrafe(0, 0.8, 83, 73, 1, 50, 4000);
-            robot.wrist.setPosition(1);
-            robot.claw1.setPosition(0.5);
-            robot.claw2.setPosition(0.5);
-            robot.odStrafe(0, 0.8, 93, 73, 1, 50, 3000);
+            /////////////// LOOK FOR RINGS THAT HAVE BOUNCED OFF POWERSHOTS //////////////////////////////////////////////////////
+            robot.odStrafe(-30, 0.45, 36, 76, 1, 50, 1000);
+            robot.odTurn(-30, 1.2, 500);
+
+            phoneCam.stopStreaming();
+
+            pipeline2 = new RingFinderPipeline();
+            phoneCam.setPipeline(pipeline2);
+            robot.intakeBar.setPosition(0);
+
+            phoneCam.startStreaming(720, 480, OpenCvCameraRotation.UPSIDE_DOWN);
+
+            int startLookTime = (int)System.currentTimeMillis();
+            int lookTime = 250; // milliseconds the robot should look
+            int position = -1;
+            while ((int)System.currentTimeMillis() < startLookTime + lookTime) {
+                position = pipeline2.positions[0];
+                telemetry.addData("s", pipeline2.s);
+                telemetry.addData("Position 1", pipeline2.positions[0]);
+                telemetry.addData("Position 2", pipeline2.positions[1]);
+                int count = 0;
+                for (double threshhold : pipeline2.threshholds) {
+                    telemetry.addData("Threshhold" + count, threshhold);
+                }
+                telemetry.update();
+            }
+            if (position < 0) { // If no ring was found, just park as normal.
+                //////////////////////// PARK /////////////////////////////////////////////////////////////////
+                robot.motorTurnNoReset(1, -700, robot.wobbleLift);
+                robot.odStrafe(0, 0.8, 83, 73, 1, 50, 4000);
+                robot.wrist.setPosition(1);
+                robot.claw1.setPosition(0.5);
+                robot.claw2.setPosition(0.5);
+                robot.odStrafe(0, 0.8, 93, 73, 1, 50, 3000);
+            }
+            else {
+                //////////// ROBOT HAS SEEN A RING AND GOES TO GET IT //////////////////////////////////////////
+                double[] path = pipeline2.getRingPath(position, robot, 54);
+                robot.motorTurnNoReset(1, -700, robot.wobbleLift);
+                robot.encoderX.setPower(1);
+                robot.set_turret_reload_position();
+                robot.wrist.setPosition(0.5);
+                robot.odStrafe(path[0], 1, path[1], path[2], 7, 60, 4000);
+
+                robot.odStrafe(path[0], 1, 42, 85, 6, 200);
+
+                // GO AND SHOOT RING //
+                robot.flywheel.setVelocity(robot.best_flywheel_velocity);
+                robot.claw1.setPosition(0.3);
+                robot.claw2.setPosition(0.7);
+                robot.odTurn(180, 1, 1300);
+                robot.wrist.setPosition(0.7);
+                robot.odStrafe(180, 1, 39, 74, 6);
+                robot.odStrafe(180, 0.45, 39, 67, 3);
+
+                robot.odometer.odSleep(500);
+                robot.aim_turret(-9);
+                robot.odometer.odSleep(400);
+                robot.aim_turret(-9);
+                robot.flicker.setPosition(1);
+                robot.odometer.odSleep(250);
+                robot.flicker.setPosition(robot.FLICKER_STANDBY);
+                robot.odometer.odSleep(220);
+                robot.flywheel.setVelocity(0);
+
+                //////////////////////// PARK /////////////////////////////////////////////////////////////////
+                robot.odStrafe(0, 1, 39, 80, 3);
+            }
         }
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -52,7 +52,6 @@ public class UltimateGoalRobot {
     HardwareMap hardwareMap;  // used to link code objects to real objects.
     LinearOpMode program; // the program using this module.  Robot requires access to the program to know when the program is trying to stop.
 
-
     // each coordinate is a len 3 array of x, y, and z. Starting point is audience/blue corner.
     final public double[] HIGH_GOAL = {36, 143, 35.5};
     final public double[] MID_GOAL = {36, 143, 19};
@@ -497,22 +496,6 @@ public class UltimateGoalRobot {
             xdis = MID_GOAL[0];
             ydis = MID_GOAL[1];
             zdis = MID_GOAL[2];
-
-        } else if (target == -1) {
-            // NEAR SHOT LOW
-            xdis = NEAR_SHOT[0];
-            ydis = NEAR_SHOT[1];
-            zdis = NEAR_SHOT[2]-1.5;
-        } else if (target == -2) {
-            // MID SHOT LOW
-            xdis = MID_SHOT[0];
-            ydis = MID_SHOT[1];
-            zdis = MID_SHOT[2]-1.5;
-        } else if (target == -3) {
-            // FAR SHOT LOW
-            xdis = FAR_SHOT[0];
-            ydis = FAR_SHOT[1];
-            zdis = FAR_SHOT[2]-1.5;
 
         } else {
             // HIGH GOAL

@@ -14,19 +14,19 @@ public class RingFinderPipeline extends OpenCvPipeline {
     private ArrayList<Mat> boxes = new ArrayList<Mat>();
     public int[] positions = {0, 0}; // up to two rings to get from a position
 
-    private int numBoxes = 7;
+    private int numBoxes = 14;
     public double[] threshholds = new double[numBoxes]; // the threshholds for each box
 
-    private int boxWidth = 68;
-    private int boxHeight = 110;
+    private int boxWidth = 34;
+    private int boxHeight = 130;
     private int boxArea = boxWidth*boxHeight;
     private int startX = 2;
-    private int boxY = 460;
+    private int boxY = 440;
 
-    private double isRingThreshhold = 110;
+    private double isRingThreshhold = 105;
     public String s = "nothing so far";
 
-    //public RingFinderPipeline() {}
+    public double cameraDegreeRange = 50;
 
 
     @Override
@@ -88,10 +88,28 @@ public class RingFinderPipeline extends OpenCvPipeline {
             count++;
         }
 
-        // determine if there are positions for the robot to go get rings
+        // save the positions for the robot to go get rings
         positions[0] = bestPosition;
         positions[1] = secondBestPosition;
 
         return workingMatrix;
+    }
+
+    // given a position, a robot, and a distance in inches to travel, it returns the angle, x, and y of where the robot needs to go to get a ring.
+    public double[] getRingPath(int position, UltimateGoalRobot robot, double distance){
+        double phoneX, phoneY, finalX, finalY, positionAngle;
+        ArrayList<Double> currentCoordinates = robot.odometer.getCurrentCoordinates();
+
+        // quick estimates as to where the phone is actually looking from
+        phoneX = robot.odometer.x + 10.3;
+        phoneY = robot.odometer.y + 3.8;
+
+        positionAngle = robot.odometer.angle - (position * this.cameraDegreeRange/numBoxes) + this.cameraDegreeRange/2 - 2;
+
+        finalX = phoneX + Math.cos(Math.toRadians(90+positionAngle))*distance;
+        finalY = phoneY + Math.sin(Math.toRadians(90+positionAngle))*distance;
+
+        double[] output = {positionAngle, finalX, finalY};
+        return output;
     }
 }
