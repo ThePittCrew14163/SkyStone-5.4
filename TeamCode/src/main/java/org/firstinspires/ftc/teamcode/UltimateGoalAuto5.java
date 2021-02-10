@@ -103,7 +103,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.odometer.odSleep(300);
 
             //////////////////////// HIT POWER SHOTS ////////////////////////////////////////////////
-            robot.flywheel.setVelocity(robot.best_flywheel_velocity-600); // robot shoots low and slower
+            robot.flywheel.setVelocity(robot.best_flywheel_velocity-800); // robot shoots low and slower
             //                  to increase chance that rings bounce off the powershots back into the field.
             robot.odStrafe(0, 1, 37, 66, 8);
             robot.odStrafe(0, 0.5, 48, 62, 4);

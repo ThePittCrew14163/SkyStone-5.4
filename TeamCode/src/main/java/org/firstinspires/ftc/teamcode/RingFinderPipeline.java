@@ -25,7 +25,7 @@ public class RingFinderPipeline extends OpenCvPipeline {
     private int endY = 435;
     private int incrementY = (endY-startY)/numBoxes;
 
-    private double isRingThreshhold = 105;
+    private double isRingThreshhold = 85;
     public String s = "nothing so far";
 
     public double cameraDegreeRange = 43;
@@ -60,16 +60,17 @@ public class RingFinderPipeline extends OpenCvPipeline {
         }
 
         int count = 0, bestPosition = -1, secondBestPosition = -1;
-        double bestPositionValue = 125, secondBestPositionValue = 125;
+        double bestPositionValue = 75, secondBestPositionValue = 75;
         double boxValue;
 
         // Loop through every box where the robot looks for rings and find the places where there are most likely rings
         // The value we're looking at is lowest in the presence of rings
+        // Old way: boxValue = Core.sumElems(box).val[2]/boxArea; private double isRingThreshhold = 105;
         for (Mat box : this.boxes) {
-            boxValue = Core.sumElems(box).val[2]/boxArea;
+            boxValue = Core.sumElems(box).val[1]/boxArea; // should look for redishness
             threshholds[count] = boxValue;
-            if (boxValue < isRingThreshhold){
-                if (boxValue < bestPositionValue){
+            if (boxValue > isRingThreshhold){
+                if (boxValue > bestPositionValue){
                     // If the best position has been surpassed, what used to be best is now second best
                     secondBestPositionValue = bestPositionValue;
                     secondBestPosition = bestPosition;
@@ -77,7 +78,7 @@ public class RingFinderPipeline extends OpenCvPipeline {
                     bestPositionValue = boxValue;
                     bestPosition = count;
 
-                } else if (boxValue < secondBestPositionValue){
+                } else if (boxValue > secondBestPositionValue){
                     // if the probability isn't a new best, but is better than the current second best, save it as the second best.
                     secondBestPositionValue = boxValue;
                     secondBestPosition = count;

@@ -22,6 +22,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.opencv.core.Core;
@@ -36,6 +37,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 import org.openftc.easyopencv.OpenCvPipeline;
 
+@Disabled
 @Autonomous(name="Ultimate Goal Powershots")
 public class UltimateGoalAuto3 extends LinearOpMode {
     // NOTE: THE ROBOT STARTS ON THE FAR BLUE LINE WITH ITS MIDDLE LEFT CHASSIS EXTRUSION OVER THE LINE.
