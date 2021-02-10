@@ -21,12 +21,15 @@ public class RingFinderPipeline extends OpenCvPipeline {
     private int boxHeight = 130;
     private int boxArea = boxWidth*boxHeight;
     private int startX = 2;
-    private int boxY = 440;
+    private int startY = 498;
+    private int endY = 435;
+    private int incrementY = (endY-startY)/numBoxes;
 
     private double isRingThreshhold = 105;
     public String s = "nothing so far";
 
-    public double cameraDegreeRange = 50;
+    public double cameraDegreeRange = 43;
+    public double cameraDegreeOffset = 10;
 
 
     @Override
@@ -45,8 +48,8 @@ public class RingFinderPipeline extends OpenCvPipeline {
             // workingMatrix.submat(rowStart, rowEnd, colStart, colEnd) row is y col is x
             int colStart = startX+(boxWidth*i);
             int colEnd = colStart + boxWidth;
-            int rowStart = boxY;
-            int rowEnd = boxY + boxHeight;
+            int rowStart = startY + (incrementY*i);
+            int rowEnd = rowStart + boxHeight;
             try {
                 Mat newMat = workingMatrix.submat(rowStart, rowEnd, colStart, colEnd);
                 boxes.add(newMat);
@@ -100,11 +103,11 @@ public class RingFinderPipeline extends OpenCvPipeline {
         double phoneX, phoneY, finalX, finalY, positionAngle;
         ArrayList<Double> currentCoordinates = robot.odometer.getCurrentCoordinates();
 
-        // quick estimates as to where the phone is actually looking from
+        // quick estimates as to where the phone is actually looking from, assumes robot faces -30 degrees
         phoneX = robot.odometer.x + 10.3;
         phoneY = robot.odometer.y + 3.8;
 
-        positionAngle = robot.odometer.angle - (position * this.cameraDegreeRange/numBoxes) + this.cameraDegreeRange/2 - 2;
+        positionAngle = robot.odometer.angle - (position * this.cameraDegreeRange/numBoxes) + this.cameraDegreeRange/2 - this.cameraDegreeOffset;
 
         finalX = phoneX + Math.cos(Math.toRadians(90+positionAngle))*distance;
         finalY = phoneY + Math.sin(Math.toRadians(90+positionAngle))*distance;

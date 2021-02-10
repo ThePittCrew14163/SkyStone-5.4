@@ -40,7 +40,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 public class UltimateGoalAuto5 extends LinearOpMode {
     // NOTE: THE ROBOT STARTS ON THE FAR BLUE LINE WITH ITS MIDDLE LEFT CHASSIS EXTRUSION OVER THE LINE.
     // NOTE: EXTRUSION THAT HOLDS WOBBLE GOAL GRABBER WRIST LINES UP AT THE SAME HEIGHT WITH PIECE OF YELLOW TAPE THAT JOSH PUT THERE.
-    // NOTE: MOST OF THE VISION CODE WAS COPIED FROM 9794 WIZARDS.EXE.
+    // NOTE: HALF OF THE VISION CODE WAS COPIED FROM 9794 WIZARDS.EXE.
     UltimateGoalRobot robot = new UltimateGoalRobot();
     OpenCvInternalCamera phoneCam;
     RingDeterminationPipeline pipeline;
@@ -93,7 +93,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        /////////////////////// POSITION A (NO RINGS) 80-104pt /////////////////////////////////////////////////////////////////////////
+        /////////////////////// POSITION A (NO RINGS) 80-92pt /////////////////////////////////////////////////////////////////////////
         if (this.ringPosition == RingPosition.NONE) {
 
             /////////////// PLACE FIRST WOBBLE GOAL /////////////////////////////////////////////////
@@ -103,7 +103,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.odometer.odSleep(300);
 
             //////////////////////// HIT POWER SHOTS ////////////////////////////////////////////////
-            robot.flywheel.setVelocity(robot.best_flywheel_velocity-250); // robot shoots low and slower
+            robot.flywheel.setVelocity(robot.best_flywheel_velocity-600); // robot shoots low and slower
             //                  to increase chance that rings bounce off the powershots back into the field.
             robot.odStrafe(0, 1, 37, 66, 8);
             robot.odStrafe(0, 0.5, 48, 62, 4);
@@ -128,6 +128,8 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 3 ///////
+            robot.flywheel.setVelocity(robot.best_flywheel_velocity-900); // robot shoots low and slower
+            //                  to increase chance that rings bounce off the powershots back into the field.
             robot.aim_turret(3);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
@@ -153,9 +155,9 @@ public class UltimateGoalAuto5 extends LinearOpMode {
 
             /////////////// PLACE SECOND WOBBLE GOAL //////////////////////////////////////////////////////
             robot.odTurn(-150, 1, 700);
-            robot.odStrafe(-150, 1, 33, 66, 8, 160);
-            robot.odStrafe(-150, 0.7, 30, 74, 3, 100, 3000);
-            robot.odTurn(-40, 1, 800);
+            robot.odStrafe(-150, 1, 37, 62, 8, 160);
+            robot.odStrafe(-150, 0.5, 32, 70, 3, 100, 3000);
+            robot.odTurn(-35, 1, 800);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.wrist.setPosition(0.3);
@@ -163,19 +165,18 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.odometer.odSleep(500);
 
             /////////////// LOOK FOR RINGS THAT HAVE BOUNCED OFF POWERSHOTS //////////////////////////////////////////////////////
-            robot.odStrafe(-30, 0.45, 36, 76, 1, 50, 1000);
-            robot.odTurn(-30, 1.2, 500);
+            robot.odStrafe(-20, 0.45, 30, 70, 1, 50, 1000);
+            robot.odTurn(-20, 1.2, 500);
 
             phoneCam.stopStreaming();
 
             pipeline2 = new RingFinderPipeline();
             phoneCam.setPipeline(pipeline2);
-            robot.intakeBar.setPosition(0);
 
             phoneCam.startStreaming(720, 480, OpenCvCameraRotation.UPSIDE_DOWN);
 
             int startLookTime = (int)System.currentTimeMillis();
-            int lookTime = 250; // milliseconds the robot should look
+            int lookTime = 500; // milliseconds the robot should look
             int position = -1;
             while ((int)System.currentTimeMillis() < startLookTime + lookTime) {
                 position = pipeline2.positions[0];
@@ -204,7 +205,8 @@ public class UltimateGoalAuto5 extends LinearOpMode {
                 robot.encoderX.setPower(1);
                 robot.set_turret_reload_position();
                 robot.wrist.setPosition(0.5);
-                robot.odStrafe(path[0], 1, path[1], path[2], 7, 60, 4000);
+                robot.odStrafe(path[0], 1, 40, 74, 7, 60, 1000);
+                robot.odStrafe(path[0], 1, path[1], path[2], 7, 60, 3000);
 
                 robot.odStrafe(path[0], 1, 42, 85, 6, 200);
 
@@ -212,19 +214,20 @@ public class UltimateGoalAuto5 extends LinearOpMode {
                 robot.flywheel.setVelocity(robot.best_flywheel_velocity);
                 robot.claw1.setPosition(0.3);
                 robot.claw2.setPosition(0.7);
-                robot.odTurn(180, 1, 1300);
+                robot.odTurn(-170, 1, 1300);
                 robot.wrist.setPosition(0.7);
-                robot.odStrafe(180, 1, 39, 74, 6);
-                robot.odStrafe(180, 0.45, 39, 67, 3);
+                robot.odStrafe(-170, 1, 39, 74, 6);
+                robot.odStrafe(-170, 0.45, 39, 67, 3);
 
-                robot.odometer.odSleep(500);
-                robot.aim_turret(-9);
-                robot.odometer.odSleep(400);
-                robot.aim_turret(-9);
-                robot.flicker.setPosition(1);
-                robot.odometer.odSleep(250);
-                robot.flicker.setPosition(robot.FLICKER_STANDBY);
-                robot.odometer.odSleep(220);
+                robot.odometer.odSleep(300);
+                for (int i = 0; i < 2; i++) {
+                    robot.odometer.odSleep(250);
+                    robot.aim_turret(-9);
+                    robot.odometer.odSleep(200);
+                    robot.flicker.setPosition(1);
+                    robot.odometer.odSleep(250);
+                    robot.flicker.setPosition(robot.FLICKER_STANDBY);
+                }
                 robot.flywheel.setVelocity(0);
 
                 //////////////////////// PARK /////////////////////////////////////////////////////////////////
@@ -248,11 +251,11 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.wobbleRelease.setPosition(0.4);
             robot.wrist.setPosition(0.5);
             robot.odStrafe(-60, 1, 39, 80, 8, 150);
-            robot.odStrafe(-70, 0.5, 38, 66, 3, 100);
-            robot.odTurn(170, 1, 1200);
+            robot.odStrafe(-70, 0.5, 38, 65, 3, 100);
+            robot.odTurn(180, 1, 1200);
 
             /////// POWER SHOT 1 ///////
-            robot.odometer.odSleep(300);
+            robot.odometer.odSleep(500);
             robot.aim_turret(1);
             robot.odometer.odSleep(400);
             robot.flicker.setPosition(1);
@@ -301,6 +304,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             // SHOOT RING //
             robot.flywheel.setVelocity(robot.best_flywheel_velocity);
             robot.odStrafe(180, 1, 46, 60, 6, 200);
+            robot.odTurn(180, 1, 600);
             robot.odometer.odSleep(500);
             robot.aim_turret(-9);
             robot.odometer.odSleep(400);
@@ -317,7 +321,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.odometer.odSleep(300);
-            robot.motorTurnNoReset(1, -700, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 0, robot.wobbleLift);
             robot.odStrafe(-120, 1, 31, 70, 5, 120);
             robot.odStrafe(0, 1, 23, 73, 5);
 

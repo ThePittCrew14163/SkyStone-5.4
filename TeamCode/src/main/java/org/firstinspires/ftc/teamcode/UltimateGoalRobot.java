@@ -35,7 +35,7 @@ public class UltimateGoalRobot {
     private double target_flywheel_power = -0.81;
     final public double best_flywheel_velocity = -2000;  // 4300rpm * CLICKS_PER_ROTATION / 60 seconds per minute
     final public double CLICKS_PER_ROTATION = 28;
-    final public double best_intakeBar_down_position = 0.27;
+    final public double best_intakeBar_down_position = 0.25;
     public DcMotor wobbleLift;
 
     public Odometry odometer;
@@ -46,7 +46,7 @@ public class UltimateGoalRobot {
     public Servo claw1;
     public Servo claw2;
     public Servo wobbleRelease;
-    public Servo intakeBar; // 1 is up, 0.27 is down.
+    public Servo intakeBar; // 1 is up, 0.25 is down.
     public Orientation angles; // used to get info from BNO055IMU
 
     HardwareMap hardwareMap;  // used to link code objects to real objects.
@@ -55,9 +55,9 @@ public class UltimateGoalRobot {
     // each coordinate is a len 3 array of x, y, and z. Starting point is audience/blue corner.
     final public double[] HIGH_GOAL = {36, 143, 35.5};
     final public double[] MID_GOAL = {36, 143, 19};
-    final public double[] NEAR_SHOT = {54, 142, 23};
-    final public double[] MID_SHOT = {62, 142, 23};
-    final public double[] FAR_SHOT = {70, 142, 23};
+    final public double[] NEAR_SHOT = {55, 142, 23};
+    final public double[] MID_SHOT = {64, 142, 23};
+    final public double[] FAR_SHOT = {72, 142, 23};
 
     final public double FLICKER_STANDBY = 0.5; // the position the flicker is at when its on standby to shoot something.
 
