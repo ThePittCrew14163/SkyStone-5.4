@@ -25,7 +25,7 @@ public class RingFinderPipeline extends OpenCvPipeline {
     private int endY = 435;
     private int incrementY = (endY-startY)/numBoxes;
 
-    private double isRingThreshhold = 85;
+    private double isRingThreshhold = 149;
     public String s = "nothing so far";
 
     public double cameraDegreeRange = 43;
