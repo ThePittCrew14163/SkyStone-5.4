@@ -103,9 +103,9 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.odometer.odSleep(300);
 
             //////////////////////// HIT POWER SHOTS ////////////////////////////////////////////////
-            robot.flywheel.setVelocity(robot.best_flywheel_velocity-1100); // robot shoots low and slower
+            robot.flywheel.setVelocity(robot.best_flywheel_velocity-1000); // robot shoots low and slower
             //                  to increase chance that rings bounce off the powershots back into the field.
-            robot.odStrafe(0, 1, 37, 66, 8);
+            robot.odStrafe(0, 1, 40, 67, 8);
             robot.odStrafe(0, 0.5, 48, 62, 4);
             robot.wobbleRelease.setPosition(0.4);
             robot.wrist.setPosition(0.5);
@@ -128,7 +128,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 3 ///////
-            robot.flywheel.setVelocity(robot.best_flywheel_velocity-1200); // robot shoots low and slower
+            robot.flywheel.setVelocity(robot.best_flywheel_velocity-1100); // robot shoots low and slower
             //                  to increase chance that rings bounce off the powershots back into the field.
             robot.aim_turret(3);
             robot.odometer.odSleep(400);
@@ -165,8 +165,8 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.odometer.odSleep(500);
 
             /////////////// LOOK FOR RINGS THAT HAVE BOUNCED OFF POWERSHOTS //////////////////////////////////////////////////////
-            robot.odStrafe(-20, 0.45, 30, 70, 1, 50, 1000);
-            robot.odTurn(-20, 1.2, 500);
+            robot.odStrafe(-10, 0.45, 30, 70, 1, 50, 1000);
+            robot.odTurn(10, 1.2, 500);
 
             phoneCam.stopStreaming();
 
@@ -176,8 +176,10 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             phoneCam.startStreaming(720, 480, OpenCvCameraRotation.UPSIDE_DOWN);
 
             int startLookTime = (int)System.currentTimeMillis();
-            int lookTime = 500; // milliseconds the robot should look
+            int lookTime = 300; // milliseconds the robot should look
             int position = -1;
+            double[] path = {0, 60, 60};
+
             while ((int)System.currentTimeMillis() < startLookTime + lookTime) {
                 position = pipeline2.positions[0];
                 telemetry.addData("s", pipeline2.s);
@@ -188,6 +190,23 @@ public class UltimateGoalAuto5 extends LinearOpMode {
                     telemetry.addData("Threshhold" + count, threshhold);
                 }
                 telemetry.update();
+                path = pipeline2.getRingPath(position, robot, 54);
+            }
+            if (position < 0) { // If no ring was found, look again but 45 degrees to the right
+                robot.odTurn(-35, 1.2, 700);
+                startLookTime = (int)System.currentTimeMillis();
+                while ((int)System.currentTimeMillis() < startLookTime + lookTime) {
+                    position = pipeline2.positions[0];
+                    telemetry.addData("s", pipeline2.s);
+                    telemetry.addData("Position 1", pipeline2.positions[0]);
+                    telemetry.addData("Position 2", pipeline2.positions[1]);
+                    int count = 0;
+                    for (double threshhold : pipeline2.threshholds) {
+                        telemetry.addData("Threshhold" + count, threshhold);
+                    }
+                    telemetry.update();
+                    path = pipeline2.getRingPath(position, robot, 54, 10.3, 3.8);
+                }
             }
             if (position < 0) { // If no ring was found, just park as normal.
                 //////////////////////// PARK /////////////////////////////////////////////////////////////////
@@ -200,7 +219,6 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             }
             else {
                 //////////// ROBOT HAS SEEN A RING AND GOES TO GET IT //////////////////////////////////////////
-                double[] path = pipeline2.getRingPath(position, robot, 54);
                 robot.motorTurnNoReset(1, -700, robot.wobbleLift);
                 robot.encoderX.setPower(1);
                 robot.set_turret_reload_position();

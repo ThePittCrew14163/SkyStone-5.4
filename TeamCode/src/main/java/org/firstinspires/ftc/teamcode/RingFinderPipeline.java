@@ -100,13 +100,16 @@ public class RingFinderPipeline extends OpenCvPipeline {
     }
 
     // given a position, a robot, and a distance in inches to travel, it returns the angle, x, and y of where the robot needs to go to get a ring.
-    public double[] getRingPath(int position, UltimateGoalRobot robot, double distance){
+    public double[] getRingPath(int position, UltimateGoalRobot robot, double distance) {
+        // quick estimates as to where the phone is actually looking from, assumes robot faces 0 degrees
+        return getRingPath(position, robot, distance, 7, 8.5);
+    }
+    public double[] getRingPath(int position, UltimateGoalRobot robot, double distance, double phoneXOffset, double phoneYOffset){
         double phoneX, phoneY, finalX, finalY, positionAngle;
         ArrayList<Double> currentCoordinates = robot.odometer.getCurrentCoordinates();
 
-        // quick estimates as to where the phone is actually looking from, assumes robot faces -30 degrees
-        phoneX = robot.odometer.x + 10.3;
-        phoneY = robot.odometer.y + 3.8;
+        phoneX = robot.odometer.x + phoneXOffset;
+        phoneY = robot.odometer.y + phoneYOffset;
 
         positionAngle = robot.odometer.angle - (position * this.cameraDegreeRange/numBoxes) + this.cameraDegreeRange/2 - this.cameraDegreeOffset;
 
