@@ -141,7 +141,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
 
             //////////////////// GRAB SECOND WOBBLE GOAL //////////////////////////////////////////////
             robot.wrist.setPosition(0);
-            robot.motorTurnNoReset(1, 2800, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 3100, robot.wobbleLift);
             robot.odStrafe(180, 1, 46, 54, 8, 120);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
@@ -193,7 +193,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
                 path = pipeline2.getRingPath(position, robot, 54);
             }
             if (position < 0) { // If no ring was found, look again but 45 degrees to the right
-                robot.odTurn(-35, 1.2, 700);
+                robot.odTurn(-40, 1.2, 700);
                 startLookTime = (int)System.currentTimeMillis();
                 while ((int)System.currentTimeMillis() < startLookTime + lookTime) {
                     position = pipeline2.positions[0];
@@ -305,7 +305,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.odStrafe(-180, 1, 35, 49, 6, 120);
 
             // NOW GO GRAB WOBBLE GOAL //
-            robot.motorTurnNoReset(1, 2800, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 3100, robot.wobbleLift);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.odometer.odSleep(500);
@@ -314,7 +314,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.claw1.setPosition(0.265);
             robot.claw2.setPosition(0.735);
             robot.odometer.odSleep(500);
-            robot.motorTurnNoReset(1, 800, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 1000, robot.wobbleLift);
             robot.wrist.setPosition(0.05);
 
             /////////////// PLACE SECOND WOBBLE GOAL //////////////////////////////////////////////////////
@@ -409,7 +409,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.odStrafe(-180, 0.4, 36, 51, 2, 120, 1500);
 
             // NOW GO GRAB WOBBLE GOAL //
-            robot.motorTurnNoReset(1, 2800, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 3100, robot.wobbleLift);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.odometer.odSleep(500);

@@ -137,7 +137,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             //////////////////// GRAB SECOND WOBBLE GOAL //////////////////////////////////////////////
             robot.wrist.setPosition(0);
             robot.odStrafe(135, 1, 45, 60, 8, 120);
-            robot.motorTurnNoReset(1, 2800, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 3100, robot.wobbleLift);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.odometer.odSleep(500);
@@ -183,9 +183,11 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.flywheel.setVelocity(robot.best_flywheel_velocity);
             robot.wobbleRelease.setPosition(0.4);
             robot.wrist.setPosition(0.5);
-            robot.odStrafe(-60, 1, 39, 80, 8, 150);
-            robot.odStrafe(-70, 0.5, 38, 66, 3, 100);
-            robot.odTurn(170, 1, 1200);
+            robot.odStrafe(-50, 1, 37, 88, 9);
+            robot.odTurn(180, 1, 1300);
+            robot.wrist.setPosition(0.5);
+            robot.odStrafe(180, 1, 36, 74, 5);
+            robot.odStrafe(180, 0.45, 36, 67, 3);
 
             /////// POWER SHOT 1 ///////
             robot.odometer.odSleep(300);
@@ -220,7 +222,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.odStrafe(-180, 1, 35, 49, 6, 120);
 
             // NOW GO GRAB WOBBLE GOAL //
-            robot.motorTurnNoReset(1, 2800, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 3100, robot.wobbleLift);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.odometer.odSleep(500);
@@ -229,7 +231,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.claw1.setPosition(0.265);
             robot.claw2.setPosition(0.735);
             robot.odometer.odSleep(500);
-            robot.motorTurnNoReset(1, 800, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 1000, robot.wobbleLift);
             robot.wrist.setPosition(0.05);
 
             /////////////// PLACE SECOND WOBBLE GOAL //////////////////////////////////////////////////////
@@ -323,7 +325,7 @@ public class UltimateGoalAuto4 extends LinearOpMode {
             robot.odStrafe(-180, 0.4, 36, 51, 2, 120, 1500);
 
             // NOW GO GRAB WOBBLE GOAL //
-            robot.motorTurnNoReset(1, 2800, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 3100, robot.wobbleLift);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.odometer.odSleep(500);
