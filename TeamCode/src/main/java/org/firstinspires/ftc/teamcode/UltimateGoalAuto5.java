@@ -157,7 +157,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.odTurn(-150, 1, 700);
             robot.odStrafe(-150, 1, 37, 62, 8, 160);
             robot.odStrafe(-150, 0.5, 32, 70, 3, 100, 3000);
-            robot.odTurn(-35, 1, 800);
+            robot.odTurn(-45, 1, 800);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.wrist.setPosition(0.3);
