@@ -55,9 +55,9 @@ public class UltimateGoalRobot {
     // each coordinate is a len 3 array of x, y, and z. Starting point is audience/blue corner.
     final public double[] HIGH_GOAL = {36, 143, 35};
     final public double[] MID_GOAL = {36, 143, 19};
-    final public double[] NEAR_SHOT = {55, 142, 23};
-    final public double[] MID_SHOT = {63, 142, 22};
-    final public double[] FAR_SHOT = {72.5, 142, 22};
+    final public double[] NEAR_SHOT = {53, 142, 22};
+    final public double[] MID_SHOT = {62, 142, 22};
+    final public double[] FAR_SHOT = {71, 142, 22};
 
     final public double FLICKER_STANDBY = 0.54; // the position the flicker is at when its on standby to shoot something.
 
