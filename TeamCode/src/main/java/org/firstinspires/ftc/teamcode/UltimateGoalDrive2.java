@@ -40,7 +40,7 @@ public class UltimateGoalDrive2 extends LinearOpMode {
         // adjustAngle = this.get_coordinates(); // doesn't work. yet.
 
         //Start robot with front just up against launch zone line and side against blue wall, intake facing the target.
-        robot.odometer.x = 9;
+        robot.odometer.x = 87;
         robot.odometer.y = 73;
 
         if (Math.abs(gamepad2.right_stick_x) + Math.abs(gamepad2.right_stick_y) > 0.2) {
