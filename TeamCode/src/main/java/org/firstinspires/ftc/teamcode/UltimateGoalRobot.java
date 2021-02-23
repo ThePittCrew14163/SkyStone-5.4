@@ -47,6 +47,8 @@ public class UltimateGoalRobot {
     public Servo claw2;
     public Servo wobbleRelease;
     public Servo intakeBar; // 1 is up, 0.25 is down.
+    public Servo leftWing;  // 0 is up, 1 is down
+    public Servo rightWing; // 1 is up, 0 is down
     public Orientation angles; // used to get info from BNO055IMU
 
     HardwareMap hardwareMap;  // used to link code objects to real objects.
@@ -84,6 +86,8 @@ public class UltimateGoalRobot {
         claw2 = hardwareMap.get(Servo.class, "claw2");
         wobbleRelease = hardwareMap.get(Servo.class, "wobbleRelease"); // Note: wobbleRelease should not be set  > 0.8 ish, as it hits a beam.
         intakeBar = hardwareMap.get(Servo.class, "intakeBar");
+        leftWing = hardwareMap.get(Servo.class, "leftWing");
+        rightWing = hardwareMap.get(Servo.class, "rightWing");
 
         wheel1 = hardwareMap.get(DcMotor.class, "wheel1");
         wheel2 = hardwareMap.get(DcMotor.class, "wheel2");

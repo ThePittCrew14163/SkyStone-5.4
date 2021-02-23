@@ -78,6 +78,8 @@ public class UltimateGoalAuto5 extends LinearOpMode {
         robot.claw1.setPosition(0.4);
         robot.claw2.setPosition(0.82);
         robot.intakeBar.setPosition(1);
+        robot.leftWing.setPosition(0);
+        robot.rightWing.setPosition(1);
 
         while (!isStarted() && !isStopRequested()) {
             this.ringPosition = pipeline.position;

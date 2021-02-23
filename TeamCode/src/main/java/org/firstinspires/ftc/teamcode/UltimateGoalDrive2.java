@@ -141,6 +141,16 @@ public class UltimateGoalDrive2 extends LinearOpMode {
                 robot.intakeBar.setPosition(robot.best_intakeBar_down_position);
             }
 
+            ///////////////// WING CONTROLS gamepad 2 //////////////////
+
+            if (gamepad2.right_stick_y > -0.6) {
+                robot.leftWing.setPosition(0);
+                robot.rightWing.setPosition(1);
+            }
+            else if (gamepad2.right_stick_y > 0.6) {
+                robot.leftWing.setPosition(1);
+                robot.rightWing.setPosition(0);
+            }
 
             ///////////////// RESET ODOMETRY gamepad 2 //////////////////
             if (gamepad2.left_stick_y > 0.6) {
