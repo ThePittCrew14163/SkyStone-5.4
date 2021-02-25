@@ -59,7 +59,7 @@ public class UltimateGoalRobot {
     final public double[] MID_GOAL = {36, 143, 19};
     final public double[] NEAR_SHOT = {53, 142, 22};
     final public double[] MID_SHOT = {63, 142, 22};
-    final public double[] FAR_SHOT = {73, 142, 22};
+    final public double[] FAR_SHOT = {72, 142, 22};
 
     final public double FLICKER_STANDBY = 0.54; // the position the flicker is at when its on standby to shoot something.
 
@@ -477,6 +477,12 @@ public class UltimateGoalRobot {
         turretBase.setPosition(0.51);
         turretLevel.setPosition(0.2);
     }
+
+    public void setRollerPower(double power) {
+        this.encoderX.setPower(power);
+        this.encoderY.setPower(power);
+    }
+
     public void aim_turret(int target) {
         ArrayList<Double> list = this.odometer.getCurrentCoordinates();
         double xdis, ydis, zdis;

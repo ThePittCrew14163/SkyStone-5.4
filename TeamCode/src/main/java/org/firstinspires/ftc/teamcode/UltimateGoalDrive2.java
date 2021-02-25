@@ -57,6 +57,7 @@ public class UltimateGoalDrive2 extends LinearOpMode {
         robot.flicker.setPosition(robot.FLICKER_STANDBY);
         robot.wrist.setPosition(1);
         robot.intakeBar.setPosition(robot.best_intakeBar_down_position);
+        robot.leftWing.setPosition(1);
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
@@ -129,11 +130,11 @@ public class UltimateGoalDrive2 extends LinearOpMode {
                 this.last_intake_switch = (int) System.currentTimeMillis();
             }
             if (gamepad1.right_bumper) {
-                robot.encoderX.setPower(-1);
+                robot.setRollerPower(-1);
             } else if (!run_intake) {
-                robot.encoderX.setPower(0);
+                robot.setRollerPower(0);
             } else {
-                robot.encoderX.setPower(1);
+                robot.setRollerPower(1);
             }
             if (gamepad1.y) {
                 robot.intakeBar.setPosition(1);
@@ -143,23 +144,26 @@ public class UltimateGoalDrive2 extends LinearOpMode {
 
             ///////////////// WING CONTROLS gamepad 2 //////////////////
 
-            if (gamepad2.right_stick_y > -0.6) {
-                robot.leftWing.setPosition(0);
+            if (gamepad2.dpad_left) {
+                robot.leftWing.setPosition(0); // up
                 robot.rightWing.setPosition(1);
             }
-            else if (gamepad2.right_stick_y > 0.6) {
-                robot.leftWing.setPosition(1);
+            else if (gamepad2.dpad_right) {
+                robot.leftWing.setPosition(1); // down
                 robot.rightWing.setPosition(0);
             }
 
             ///////////////// RESET ODOMETRY gamepad 2 //////////////////
             if (gamepad2.left_stick_y > 0.6) {
                 robot.odometer.x = 9;
-            } else if (gamepad2.left_stick_y < -0.6) {
+            }
+            if (gamepad2.left_stick_y < -0.6) {
                 robot.odometer.x = 87;
-            } else if (gamepad2.left_stick_x > 0.6) {
+            }
+            if (gamepad2.left_stick_x > 0.6) {
                 robot.odometer.y = 9;
-            } else if (gamepad2.left_stick_x < -0.6) {
+            }
+            if (gamepad2.left_stick_x < -0.6) {
                 robot.odometer.y = 132.5;
             }
 
@@ -207,8 +211,12 @@ public class UltimateGoalDrive2 extends LinearOpMode {
 
             if (gamepad2.dpad_up) {
                 turret_idle = true;
+                robot.leftWing.setPosition(1);
+                robot.rightWing.setPosition(0);
             } else if (gamepad2.dpad_down || gamepad2.x || gamepad2.y || gamepad2.b || gamepad2.a) {
                 turret_idle = false;
+                robot.leftWing.setPosition(0.87);
+                robot.rightWing.setPosition(0.5);
             }
             if (turret_idle) {
                 robot.set_turret_reload_position();

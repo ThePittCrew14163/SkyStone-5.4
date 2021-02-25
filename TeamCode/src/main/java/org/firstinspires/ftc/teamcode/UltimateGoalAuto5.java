@@ -222,7 +222,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             else {
                 //////////// ROBOT HAS SEEN A RING AND GOES TO GET IT //////////////////////////////////////////
                 robot.motorTurnNoReset(1, -700, robot.wobbleLift);
-                robot.encoderX.setPower(1);
+                robot.setRollerPower(1);
                 robot.set_turret_reload_position();
                 robot.wrist.setPosition(0.5);
                 robot.odStrafe(path[0], 1, 40, 74, 7, 60, 1000);
@@ -305,7 +305,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.wrist.setPosition(0);
             // FIRST, PICK UP STARTER RING //
             robot.set_turret_reload_position();
-            robot.encoderX.setPower(1);
+            robot.setRollerPower(1);
             robot.odStrafe(-180, 1, 35, 49, 6, 120);
 
             // NOW GO GRAB WOBBLE GOAL //
@@ -404,7 +404,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.wrist.setPosition(0);
             // FIRST, PICK UP STARTER RINGS //
             robot.set_turret_reload_position();
-            robot.encoderX.setPower(1);
+            robot.setRollerPower(1);
             robot.odStrafe(-180, 0.45, 36, 57, 4, 120, 1500);
             robot.odometer.odSleep(600);
             robot.odStrafe(-180, 0.45, 36, 54, 3, 120, 1500);
