@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -17,7 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import java.util.ArrayList;
 
-public class UltimateGoalRobot {
+public class WRLRobot {
     public Blinker expansion_Hub_2;
     public Blinker expansion_Hub_3;
     public Gyroscope imu_1;
@@ -29,39 +28,14 @@ public class UltimateGoalRobot {
     public DcMotor wheel4;
     public DcMotor encoderY; // also for roller
     public DcMotor encoderX; // also for roller
-    public DcMotorEx flywheel;
-    private double last_flywheel_clicks = 0;
-    private double last_flywheel_ms = System.currentTimeMillis();
-    private double target_flywheel_power = -0.81;
-    final public double best_flywheel_velocity = -2000;  // 4300rpm * CLICKS_PER_ROTATION / 60 seconds per minute
-    final public double CLICKS_PER_ROTATION = 28;
-    final public double best_intakeBar_down_position = 0;
-    public DcMotor wobbleLift;
+    public DcMotorEx elbow;
+    public DcMotor intake;
 
     public Odometry odometer;
-    public Servo turretBase;
-    public Servo turretLevel;
-    public Servo flicker;
-    public Servo wrist;
-    public Servo claw1;
-    public Servo claw2;
-    public Servo wobbleRelease;
-    public Servo intakeBar; // 1 is up, 0 is down.
-    public Servo leftWing;  // 0 is up, 1 is down
-    public Servo rightWing; // 1 is up, 0 is down
     public Orientation angles; // used to get info from BNO055IMU
 
     HardwareMap hardwareMap;  // used to link code objects to real objects.
     LinearOpMode program; // the program using this module.  Robot requires access to the program to know when the program is trying to stop.
-
-    // each coordinate is a len 3 array of x, y, and z. Starting point is audience/blue corner.
-    final public double[] HIGH_GOAL = {36, 143, 35};
-    final public double[] MID_GOAL = {36, 143, 19};
-    final public double[] NEAR_SHOT = {53, 142, 22};
-    final public double[] MID_SHOT = {62, 142, 22};
-    final public double[] FAR_SHOT = {70, 142, 22};
-
-    final public double FLICKER_STANDBY = 0.54; // the position the flicker is at when its on standby to shoot something.
 
     public void init(HardwareMap hardwareMap, LinearOpMode program) {
         // SET UP IMU AS BNO055IMU:
@@ -78,25 +52,14 @@ public class UltimateGoalRobot {
         imu_1 = hardwareMap.get(Gyroscope.class, "imu 1");
         imu = hardwareMap.get(BNO055IMU.class, "imu");
 
-        turretBase = hardwareMap.get(Servo.class, "turretBase");
-        turretLevel = hardwareMap.get(Servo.class, "turretLevel");
-        flicker = hardwareMap.get(Servo.class, "flicker");
-        wrist = hardwareMap.get(Servo.class, "wrist");
-        claw1 = hardwareMap.get(Servo.class, "claw1");
-        claw2 = hardwareMap.get(Servo.class, "claw2");
-        wobbleRelease = hardwareMap.get(Servo.class, "wobbleRelease"); // Note: wobbleRelease should not be set  > 0.8 ish, as it hits a beam.
-        intakeBar = hardwareMap.get(Servo.class, "intakeBar");
-        leftWing = hardwareMap.get(Servo.class, "leftWing");
-        rightWing = hardwareMap.get(Servo.class, "rightWing");
-
         wheel1 = hardwareMap.get(DcMotor.class, "wheel1");
         wheel2 = hardwareMap.get(DcMotor.class, "wheel2");
         wheel3 = hardwareMap.get(DcMotor.class, "wheel3");
         wheel4 = hardwareMap.get(DcMotor.class, "wheel4");
         encoderY = hardwareMap.get(DcMotor.class, "encoderY"); // also for roller
         encoderX = hardwareMap.get(DcMotor.class, "encoderX");
-        flywheel = hardwareMap.get(DcMotorEx.class, "flywheel");
-        wobbleLift = hardwareMap.get(DcMotor.class, "wobbleLift");
+        elbow = hardwareMap.get(DcMotorEx.class, "Elbow");
+        intake = hardwareMap.get(DcMotor.class, "wobbleLift");
 
         DcMotor[] motors = {wheel1, wheel2, wheel3, wheel4};
         for (int i = 0; i < 3; i++) {
@@ -106,8 +69,8 @@ public class UltimateGoalRobot {
         wheel2.setDirection(DcMotorSimple.Direction.REVERSE);
         encoderX.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        flywheel.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        flywheel.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        elbow.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         odometer = new Odometry(0, 0, 0);
         odometer.init(imu, encoderY, encoderX);
@@ -454,84 +417,5 @@ public class UltimateGoalRobot {
         wheel4.setPower(0);
         wheel1.setPower(0);
         wheel3.setPower(0);
-    }
-    public void setFlywheelRPM(double target_rpm) {
-        double RPM = this.getFlywheelRPM();
-        double adjust = (target_rpm - RPM)/100000;
-        this.target_flywheel_power += adjust;
-        this.program.telemetry.addData("RPM", RPM);
-        this.program.telemetry.addData("power", this.target_flywheel_power);
-        this.flywheel.setPower(this.target_flywheel_power);
-    }
-    public double getFlywheelRPM() {
-        double cms = System.currentTimeMillis(); // save current time
-        double cmp = this.flywheel.getCurrentPosition(); // save current motor position
-        double ms = cms - this.last_flywheel_ms;
-        this.last_flywheel_ms = cms;
-        double clicks = cmp - this.last_flywheel_clicks;
-        this.last_flywheel_clicks = cmp;
-        double rpm = 60000*clicks/(ms*this.CLICKS_PER_ROTATION);
-        return rpm;
-    }
-    public void set_turret_reload_position(){
-        turretBase.setPosition(0.51);
-        turretLevel.setPosition(0.2);
-    }
-
-    public void setRollerPower(double power) {
-        this.encoderX.setPower(power);
-        this.encoderY.setPower(power);
-    }
-
-    public void aim_turret(int target) {
-        ArrayList<Double> list = this.odometer.getCurrentCoordinates();
-        double xdis, ydis, zdis;
-        if (target == 1) {
-            // NEAR SHOT
-            xdis = NEAR_SHOT[0];
-            ydis = NEAR_SHOT[1];
-            zdis = NEAR_SHOT[2];
-        } else if (target == 2) {
-            // MID SHOT
-            xdis = MID_SHOT[0];
-            ydis = MID_SHOT[1];
-            zdis = MID_SHOT[2];
-        } else if (target == 3) {
-            // FAR SHOT
-            xdis = FAR_SHOT[0];
-            ydis = FAR_SHOT[1];
-            zdis = FAR_SHOT[2];
-        } else if (target == 4) {
-            // MID GOAL
-            xdis = MID_GOAL[0];
-            ydis = MID_GOAL[1];
-            zdis = MID_GOAL[2];
-
-        } else {
-            // HIGH GOAL
-            xdis = HIGH_GOAL[0];
-            ydis = HIGH_GOAL[1];
-            zdis = HIGH_GOAL[2];
-        }
-        xdis -= list.get(1);
-        ydis -= list.get(2);
-        zdis -= 7.5; // turret is 6.5 inches off the ground when level, but the actual number can be adjusted for performance
-        this.program.telemetry.addData("xdis", xdis);
-        this.program.telemetry.addData("ydis", ydis);
-        double angle = (list.get(0) + 360) % 360;
-        double needed_angle = (-Math.atan2(xdis, ydis) * 180 / Math.PI + 191) % 360; // we add 191 degrees instead of 180 because the ring comes out the shooter a little to the right.
-        double diff = needed_angle - angle;
-        turretBase.setPosition(0.5 - (diff / 170));
-
-        double rdis = Math.sqrt(xdis * xdis + ydis * ydis);
-        double angleUp = Math.atan2(zdis, rdis) * 180 / Math.PI;
-        turretLevel.setPosition(0.625 - (angleUp / 160));
-
-        this.program.telemetry.addData("angle", angle);
-        this.program.telemetry.addData("needed_angle", needed_angle);
-        this.program.telemetry.addData("diff", diff);
-        this.program.telemetry.addData("\nangleUp", angleUp);
-        this.program.telemetry.addData("position", 0.75 - (angleUp / 80));
-        this.program.telemetry.addData("rdis", rdis);
     }
 }

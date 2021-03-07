@@ -105,7 +105,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.odometer.odSleep(300);
 
             //////////////////////// HIT POWER SHOTS ////////////////////////////////////////////////
-            robot.flywheel.setVelocity(robot.best_flywheel_velocity-1000); // robot shoots low and slower
+            robot.flywheel.setVelocity(robot.best_flywheel_velocity-500); // robot shoots low and slower
             //                  to increase chance that rings bounce off the powershots back into the field.
             robot.odStrafe(0, 1, 40, 67, 8);
             robot.odStrafe(0, 0.5, 48, 62, 4);
@@ -130,7 +130,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.flicker.setPosition(robot.FLICKER_STANDBY);
 
             /////// POWER SHOT 3 ///////
-            robot.flywheel.setVelocity(robot.best_flywheel_velocity-1100); // robot shoots low and slower
+            robot.flywheel.setVelocity(robot.best_flywheel_velocity-700); // robot shoots low and slower
             //                  to increase chance that rings bounce off the powershots back into the field.
             robot.aim_turret(3);
             robot.odometer.odSleep(400);
@@ -143,7 +143,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
 
             //////////////////// GRAB SECOND WOBBLE GOAL //////////////////////////////////////////////
             robot.wrist.setPosition(0);
-            robot.motorTurnNoReset(1, 3100, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 3800, robot.wobbleLift);
             robot.odStrafe(180, 1, 46, 54, 8, 120);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
@@ -306,10 +306,10 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             // FIRST, PICK UP STARTER RING //
             robot.set_turret_reload_position();
             robot.setRollerPower(1);
-            robot.odStrafe(-180, 1, 35, 49, 6, 120);
+            robot.odStrafe(-180, 1, 33, 49, 6, 120);
 
             // NOW GO GRAB WOBBLE GOAL //
-            robot.motorTurnNoReset(1, 3100, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 3800, robot.wobbleLift);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.odometer.odSleep(500);
@@ -351,7 +351,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.wrist.setPosition(1);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
-            robot.odStrafe(0, 0.8, 93, 73, 1, 50, 3000);
+            robot.odStrafe(0, 1, 93, 73, 1, 50, 3000);
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -405,14 +405,14 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             // FIRST, PICK UP STARTER RINGS //
             robot.set_turret_reload_position();
             robot.setRollerPower(1);
-            robot.odStrafe(-180, 0.45, 36, 57, 4, 120, 1500);
-            robot.odometer.odSleep(600);
-            robot.odStrafe(-180, 0.45, 36, 54, 3, 120, 1500);
-            robot.odometer.odSleep(600);
-            robot.odStrafe(-180, 0.4, 36, 51, 2, 120, 1500);
+            robot.odStrafe(-180, 0.45, 33, 57, 4, 120, 1500);
+            robot.odometer.odSleep(300);
+            robot.odStrafe(-180, 0.45, 33, 54, 3, 120, 1500);
+            robot.odometer.odSleep(300);
+            robot.odStrafe(-180, 0.4, 33, 51, 2, 120, 1500);
 
             // NOW GO GRAB WOBBLE GOAL //
-            robot.motorTurnNoReset(1, 3100, robot.wobbleLift);
+            robot.motorTurnNoReset(1, 3800, robot.wobbleLift);
             robot.claw1.setPosition(0.5);
             robot.claw2.setPosition(0.5);
             robot.odometer.odSleep(500);
@@ -421,7 +421,7 @@ public class UltimateGoalAuto5 extends LinearOpMode {
             robot.odStrafe(90, 1, 48, 32, 5, 50, 2100);
             robot.claw1.setPosition(0.265);
             robot.claw2.setPosition(0.735);
-            robot.odometer.odSleep(500);
+            robot.odometer.odSleep(300);
             robot.motorTurnNoReset(1, 1000, robot.wobbleLift);
             robot.wrist.setPosition(0.05);
 

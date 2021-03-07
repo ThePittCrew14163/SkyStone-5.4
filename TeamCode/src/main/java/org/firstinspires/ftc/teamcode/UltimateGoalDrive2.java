@@ -158,7 +158,7 @@ public class UltimateGoalDrive2 extends LinearOpMode {
                 robot.odometer.x = 9;
             }
             if (gamepad2.left_stick_y < -0.6) {
-                robot.odometer.x = 87;
+                robot.odometer.x = 90;
             }
             if (gamepad2.left_stick_x > 0.6) {
                 robot.odometer.y = 9;
