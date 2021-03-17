@@ -59,7 +59,7 @@ public class WRLRobot {
         encoderY = hardwareMap.get(DcMotor.class, "encoderY"); // also for roller
         encoderX = hardwareMap.get(DcMotor.class, "encoderX");
         elbow = hardwareMap.get(DcMotorEx.class, "Elbow");
-        intake = hardwareMap.get(DcMotor.class, "wobbleLift");
+        intake = hardwareMap.get(DcMotor.class, "intake");
 
         DcMotor[] motors = {wheel1, wheel2, wheel3, wheel4};
         for (int i = 0; i < 3; i++) {
@@ -68,6 +68,7 @@ public class WRLRobot {
         wheel4.setDirection(DcMotorSimple.Direction.REVERSE);
         wheel2.setDirection(DcMotorSimple.Direction.REVERSE);
         encoderX.setDirection(DcMotorSimple.Direction.REVERSE);
+        encoderY .setDirection(DcMotorSimple.Direction.REVERSE);
 
         elbow.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         elbow.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -306,10 +307,10 @@ public class WRLRobot {
     }
 
     public void odStrafe(double heading, double speed, double x, double y) {
-        odStrafe(heading, speed, x, y, 1, 50, 120000);
+        odStrafe(heading, speed, x, y, 1, 0.02, 120000);
     }
     public void odStrafe(double heading, double speed, double x, double y, double buffer) {
-        odStrafe(heading, speed, x, y, buffer, 50, 120000);
+        odStrafe(heading, speed, x, y, buffer, 0.02, 120000);
     }
     public void odStrafe(double heading, double speed, double x, double y, double buffer, double adjustPower) {
         odStrafe(heading, speed, x, y, buffer, adjustPower, 120000);
@@ -317,7 +318,7 @@ public class WRLRobot {
     public void odStrafe(double heading, double speed, double x, double y, double buffer, double adjustPower, int millis) {
         // travels facing heading going at speed towards the point x, y (x and y are in inches).
         // buffer is how close (in inches) the robot has to get to its target position before it can move on.
-        // adjust power is how little power it uses to correct its heading.
+        // adjust power is how much power it uses to correct its heading. Values should be be between 0.2-0.0001
         wheel1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         wheel2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         wheel3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -355,9 +356,9 @@ public class WRLRobot {
                 if (difference < 0) { sign = -1;
                 } else { sign = 1; }
                 difference = sign * (360-Math.abs(difference));
-                difference = -(difference)/adjustPower;
+                difference = -(difference)*adjustPower;
             } else {
-                difference = (difference)/adjustPower;
+                difference = (difference)*adjustPower;
             }
             wheel1.setPower((speed*y_vector)+difference);
             wheel2.setPower((speed*x_vector)-difference);
@@ -417,5 +418,8 @@ public class WRLRobot {
         wheel4.setPower(0);
         wheel1.setPower(0);
         wheel3.setPower(0);
+    }
+    public void odSleep(int mls) {
+        odometer.odSleep(mls);
     }
 }
