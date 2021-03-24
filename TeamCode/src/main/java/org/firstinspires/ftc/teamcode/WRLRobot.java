@@ -402,9 +402,9 @@ public class WRLRobot {
                 if (Math.abs(correct) > 1) { correct = sign; } // make sure that we don't correct so mauch that we give the motors greater power than speed.
             }
             final_speed = speed*correct;
-            if (Math.abs(final_speed) < 0.22) {
-                if (final_speed > 0) {final_speed = 0.22;}
-                if (final_speed < 0) {final_speed = -0.22;}
+            if (Math.abs(final_speed) < 0.05) {
+                if (final_speed > 0) {final_speed = 0.05;}
+                if (final_speed < 0) {final_speed = -0.05;}
             }
             wheel2.setPower(-final_speed);
             wheel4.setPower(-final_speed);

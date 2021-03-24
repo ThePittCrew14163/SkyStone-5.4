@@ -21,10 +21,10 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@Autonomous
+@TeleOp
 public class WRLAuto extends LinearOpMode
 {
     WRLRobot robot = new WRLRobot();
@@ -41,36 +41,91 @@ public class WRLAuto extends LinearOpMode
 
         waitForStart();
 
-        robot.odStrafe(0, 0.4, 10, 18, 2, 0.005, 3000);
-        robot.odTurn(-90, 1, 500);
-        robot.odTurn(-90, 0.15, 1000);
+        robot.odStrafe(0, 0.3, 8, 21, 1, 0.015, 4000);
+        robot.odTurn(-90, 1, 1500);
+        robot.odTurn(-90, 0.2, 2000);
 
         for (int i = 1; i <= 3; i++)  {  //this is a loop remember how to use it, this is loop for getting first 3 blocks with handle
-            robot.motorTurnNoReset(0.5, 100, robot.elbow);
+            robot.motorTurnNoReset(0.5, -4000, robot.elbow);
             robot.intake.setPower(1);
 
-            telemetry.addData("Running", i);
+            telemetry.addData("IF I WORK GOOD JOB!!! IF I DON'T GO FIX ME!!!", i);
             telemetry.update();
 
-            robot.odSleep(1000);
+            robot.odSleep(1500);
             robot.motorTurnNoReset(0.5, 0, robot.elbow);
-            robot.odSleep(1000);
+            robot.odSleep(1500);
 
             if (i >= 3){break;}
-            robot.odStrafe(-90, 0.4, 10 + i*14, 20, 2, 0.005, 4500);
+            robot.odStrafe(-90, 0.3, 8 + i*15, 22, 2, 0.01, 8000);
         }
-        //turns the robot so that it picks up last block with handle
-        robot.odStrafe(-90,0.4,46, 23, 2, 0.005, 4000);
-        robot.odTurn(-130,1,500);
-        robot.odTurn(-130,0.15,1000);
-        robot.motorTurnNoReset(0.5,100, robot.elbow);
-        robot.intake.setPower(1);
-        robot.odSleep(500);
-        robot.motorTurnNoReset(0.5, 0,robot.elbow);
-        robot.odTurn(-90, 1, 500);
-        robot.odTurn(-90, 0.25, 1000);
-        robot.odStrafe(-90,0.4,43,22,2,0.005,4000);
 
+        //turns the robot so that it picks up last block with handle
+        robot.odStrafe(-90,0.3,47, 25.5, 2, 0.01, 5000);
+
+        //twists robot to get the handle block in the right corner//
+        robot.odTurn(-126,1,1500);
+        robot.odTurn(-126,0.18 ,1000);
+        robot.motorTurnNoReset(0.5,-4000, robot.elbow);
+        robot.intake.setPower(1);
+        robot.odSleep(3000);
+        robot.motorTurnNoReset(0.5, 0,robot.elbow);
+        robot.odSleep(3000);
+
+
+        //makes robot face right wall and put block through tiny tiny gap//
+        robot.odTurn(-90, 1, 1500);
+        robot.odTurn(-90, 0.25, 2000);
+        robot.odStrafe(-90,0.3,39.5,26,2,0.01,5000);
+        robot.motorTurnNoReset(0.5,-3200,robot.elbow);
+        robot.odSleep(2500);
+        robot.intake.setPower(-1);
+        robot.odSleep(2500);
+        robot.motorTurnNoReset(0.5,0,robot.elbow);
+        robot.odSleep(2500);
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //picking up blocks without handles//
+        robot.odStrafe(-90,0.3,42, 25, 2, 0.01, 5000);
+
+        //twists robot to get the block in the right corner//
+        robot.odTurn(-128,1,1500);
+        robot.odTurn(-128,0.15,2000);
+        robot.motorTurnNoReset(0.5,-4000, robot.elbow);
+        robot.intake.setPower(1);
+        robot.odSleep(3000);
+        robot.motorTurnNoReset(0.5, -2200,robot.elbow);
+        robot.odSleep(3000);
+        robot.odTurn(-30,1,1000);
+        robot.odTurn(-30,0.18,2000);
+        robot.odStrafe(-30,0.3,44,26,2,0.01,2500);
+        //gets the rest of the blocks //
+        robot.motorTurnNoReset(0.5,-4000,robot.elbow);
+        robot.odSleep(2500);
+        robot.odStrafe(-30, 0.3, 27, 26, 2, 0.01, 8000);
+        robot.odStrafe(-30, 0.25, 10, 26, 2, 0.01, 8000);
+        robot.odSleep(500);
+
+
+        //parks and spits the last blocks//
+        robot.odStrafe(-42,0.6,14,14,4,0.01,5000);
+        robot.odTurn(180,1,500);
+        robot.odTurn(180,0.15,2000);
+        robot.motorTurnNoReset(0.5,-4000,robot.elbow);
+        robot.odSleep(1500);
+        for (int t = 1; t <= 2; t++) {
+            robot.intake.setPower(-0.5);
+            robot.odSleep(1500);
+            robot.motorTurnNoReset(0.7,-3500,robot.elbow);
+            robot.odSleep(1500);
+            robot.motorTurnNoReset(0.7,-4000,robot.elbow);
+
+        }
+        robot.odSleep(1500);
+        robot.motorTurnNoReset(0.5,0,robot.elbow);
+        robot.odSleep(1000);
+        robot.odStrafe(-90,0.5,12,12,1,0.01,3000);
+        robot.odStrafe(-90,0.3,6,6,1,0.01,3000);
     }
 
 
