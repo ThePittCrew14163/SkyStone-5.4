@@ -54,7 +54,7 @@ public class WRLAuto extends LinearOpMode
             robot.odSleep(1500);
 
             if (i >= 3){break;}
-            robot.odStrafe(-90, 0.3, 8 + i*15, 22, 2, 0.01, 4000);
+            robot.odStrafe(-90, 0.3, 8 + i*15, 21, 2, 0.01, 4000);
 
             robot.motorTurnNoReset(0.5, -4000, robot.elbow);
             robot.intake.setPower(1);
@@ -77,13 +77,14 @@ public class WRLAuto extends LinearOpMode
         robot.odSleep(3000);
 
 
-        //makes robot face right wall and put HANDLE block through tiny tiny gap//
+        //makes robot face right wall and put HANDLE blocks through tiny tiny gap//
         robot.odTurn(-90, 1, 1500);
-        robot.odTurn(-90, 0.25, 2000);
-        robot.odStrafe(-90,0.3,39.05,27.5,2,0.01,4000);
+        robot.odTurn(-90, 0.4, 1100);
+        robot.odStrafe(-90,0.3,39,25,2,0.02,2400);
+        robot.motorTurnNoReset(0.5,-3000,robot.elbow);
         robot.odSleep(2000);
-        robot.motorTurnNoReset(0.5,-3200,robot.elbow);
-        robot.odSleep(2500);
+        robot.odStrafe(-90,0.3,40,26,1,0.025,2400);
+
         robot.intake.setPower(-1);
         robot.odSleep(2500);
         robot.motorTurnNoReset(1,-2900,robot.elbow);
@@ -95,16 +96,18 @@ public class WRLAuto extends LinearOpMode
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //picking up blocks without handles//
-        robot.odStrafe(-90,0.3,42, 24, 2, 0.01, 4000);
+        robot.odStrafe(-90,0.3,43, 24.5, 2, 0.01, 4000);
 
         //twists robot to get the block in the right corner//
-        robot.odTurn(-118,1,1500);
-        robot.odTurn(-118,0.15,2000);
+        robot.odTurn(-112,1,1500);
+        robot.odTurn(-112,0.15,2000);
         robot.motorTurnNoReset(0.5,-4000, robot.elbow);
         robot.intake.setPower(1);
         robot.odSleep(2000);
-        robot.odTurn(-170, 0.6, 2000);
-        robot.motorTurnNoReset(0.5, -2300,robot.elbow);
+        robot.odTurn(-152, 0.6, 2000);
+
+        // lifts intake to turn and eat other s-blocks
+        robot.motorTurnNoReset(0.5, -3200,robot.elbow);
         robot.odSleep(3000);
         robot.odTurn(-30,1,1000);
         robot.odTurn(-30,0.18,2000);
@@ -115,7 +118,7 @@ public class WRLAuto extends LinearOpMode
         robot.odTurn(15, 0.6, 2000);
 
         robot.odStrafe(-15, 0.3, 30.5, 25, 2, 0.01, 4000);
-        robot.odTurn(-60, 0.5, 1500);
+        robot.odTurn(-50, 0.5, 1500);
         robot.odStrafe(-40, 0.25, 14, 26, 2, 0.01, 3000);
         robot.odTurn(-5, 0.5, 1500);
         robot.motorTurnNoReset(0.6,-1800,robot.elbow);
@@ -123,8 +126,8 @@ public class WRLAuto extends LinearOpMode
 
         //parks and spits the last blocks//
         robot.odStrafe(-42,0.5,18,18,4,0.01,5000);
-        robot.odTurn(145,1,1000);
-        robot.odTurn(145,0.25,2000);
+        robot.odTurn(140,1,1000);
+        robot.odTurn(140,0.25,2000);
         robot.motorTurnNoReset(0.5,-4000,robot.elbow);
         robot.odSleep(1500);
         for (int t = 1; t <= 1; t++) {
@@ -142,8 +145,8 @@ public class WRLAuto extends LinearOpMode
         robot.odStrafe(-90,0.4,11,11,1,0.01,3000);
         robot.odStrafe(-90,0.3,8,8,1,0.01,2000);
         robot.odStrafe(-90,0.3,6,6,1,0.01,2000);
-        robot.odStrafe(-90,0.4,robot.odometer.x+0.2,3,1,0.01,2000);
-        robot.odStrafe(-90,0.3,3,robot.odometer.y+0.2,1,0.01,3000);
+        robot.odStrafe(-90,0.4,robot.odometer.x+0.3,3,1,0.01,2000);
+        robot.odStrafe(-90,0.4,3,robot.odometer.y+0.25,1,0.01,3000);
 
 
     }
