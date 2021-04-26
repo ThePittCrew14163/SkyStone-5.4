@@ -63,51 +63,52 @@ public class Skystone4StoneAuto extends LinearOpMode {
         // supported camera resolutions (for the gold E4) are: 1280x720, 960x720, 768x432, 720x480, 640x480, 320x240, 176x144
         phoneCam.startStreaming(720, 480, OpenCvCameraRotation.UPSIDE_DOWN);
 
+        robot.autoclaw.setPosition(0);
+        robot.wrist.setPosition(0.8);
+        robot.foundationGrabberL.setPosition(0);
+        robot.foundationGrabberR.setPosition(1);
+
         while (!isStarted()) {
             position = detector.position;
             telemetry.addData("position", position);
             telemetry.update();
         }
 
-        robot.autoclaw.setPosition(1);
-        robot.wrist.setPosition(0);
-        robot.odometer.odSleep(500);
-
         if (position.equals("CENTER")) {
             robot.AutoGrabStoneRedSide(2);
-            robot.AutoPlaceStoneRedSide(20);
-            robot.odStrafe(0, 1, -33, 66, 8);
+            robot.AutoPlaceStoneRedSide(24);
+            robot.odStrafe(0, 1, -33, 76, 8);
             robot.AutoGrabStoneRedSide(5);
-            robot.AutoPlaceStoneRedSide(12);
-            robot.odStrafe(0, 1, -33, 66, 8);
+            robot.AutoPlaceStoneRedSide(16);
+            robot.odStrafe(0, 1, -33, 76, 8);
             robot.AutoGrabStoneRedSide(6);
-            robot.AutoPlaceStoneRedSide(4);
-            robot.odStrafe(0, 1, -33, 66, 8);
+            robot.AutoPlaceStoneRedSide(8);
+            robot.odStrafe(0, 1, -33, 76, 8);
             robot.AutoGrabStoneRedSide(4);
             robot.AutoPlaceStoneRedSide(12);
         }
         else if (position.equals("RIGHT")) {
             robot.AutoGrabStoneRedSide(3);
-            robot.AutoPlaceStoneRedSide(20);
-            robot.odStrafe(0, 1, -33, 66, 8);
+            robot.AutoPlaceStoneRedSide(24);
+            robot.odStrafe(0, 1, -33, 76, 8);
             robot.AutoGrabStoneRedSide(6);
-            robot.AutoPlaceStoneRedSide(12);
-            robot.odStrafe(0, 1, -33, 66, 8);
+            robot.AutoPlaceStoneRedSide(16);
+            robot.odStrafe(0, 1, -33, 76, 8);
             robot.AutoGrabStoneRedSide(5);
-            robot.AutoPlaceStoneRedSide(4);
-            robot.odStrafe(0, 1, -33, 66, 8);
+            robot.AutoPlaceStoneRedSide(8);
+            robot.odStrafe(0, 1, -33, 76, 8);
             robot.AutoGrabStoneRedSide(4);
             robot.AutoPlaceStoneRedSide(12);
         }
         else {
             robot.AutoGrabStoneRedSide(1);
-            robot.AutoPlaceStoneRedSide(20);
+            robot.AutoPlaceStoneRedSide(24);
             robot.odStrafe(0, 1, -33, 66, 8);
             robot.AutoGrabStoneRedSide(4);
-            robot.AutoPlaceStoneRedSide(12);
+            robot.AutoPlaceStoneRedSide(16);
             robot.odStrafe(0, 1, -33, 66, 8);
             robot.AutoGrabStoneRedSide(6);
-            robot.AutoPlaceStoneRedSide(4);
+            robot.AutoPlaceStoneRedSide(8);
             robot.odStrafe(0, 1, -33, 66, 8);
             robot.AutoGrabStoneRedSide(5);
             robot.AutoPlaceStoneRedSide(12);

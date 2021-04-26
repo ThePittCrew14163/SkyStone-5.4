@@ -438,8 +438,8 @@ public class SkystoneRobot2 {
     public void AutoGrabStoneRedSide(int stone) {
         this.autoclaw.setPosition(1);
         this.wrist.setPosition(0);
-        this.odStrafe(0,1,-31,8*stone + 9,10);
-        this.odStrafe(0,0.35,-34,8*stone + 1,1.5);
+        this.odStrafe(0,1,-31,8*stone + 12,10);
+        this.odStrafe(0,0.3,-34,8*stone + 1,1.5);
 
         this.autoclaw.setPosition(0);
         this.odometer.odSleep(1000);
@@ -450,8 +450,8 @@ public class SkystoneRobot2 {
 
     // offset is how many inches from the bridge side of the foundation to place the stone
     public void AutoPlaceStoneRedSide(int offset) {
-        this.odStrafe(0, 1, -37, 97+offset, 10);
-        this.odStrafe(0, 0.35, -37, 103+offset, 3);
+        this.odStrafe(0, 1, -34, 94+offset, 10);
+        this.odStrafe(0, 0.3, -37, 104+offset, 3);
         this.wrist.setPosition(0.2);
         this.odometer.odSleep(300);
         this.autoclaw.setPosition(1);
