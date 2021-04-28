@@ -79,10 +79,8 @@ public class SkystoneRobot2 {
         lift2 = hardwareMap.get(DcMotorEx.class, "lift2");
         lift3 = hardwareMap.get(DcMotor.class, "lift3");
 
-        DcMotor[] motors = {wheel1, wheel2, wheel3, wheel4};
-        for (int i = 0; i < 3; i++) {
-            motors[i].setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        }
+        DriveBaseSetZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         wheel4.setDirection(DcMotorSimple.Direction.REVERSE);
         wheel2.setDirection(DcMotorSimple.Direction.REVERSE);
         encoderX.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -438,25 +436,47 @@ public class SkystoneRobot2 {
     public void AutoGrabStoneRedSide(int stone) {
         this.autoclaw.setPosition(1);
         this.wrist.setPosition(0);
-        this.odStrafe(0,1,-31,8*stone + 12,10);
-        this.odStrafe(0,0.3,-34,8*stone + 1,1.5);
+        this.odStrafe(0,1,-32,8*stone + 13,10);
+        this.BrakeRobot(100);
+        this.odStrafe(0,0.35,-35,8*stone + 3,1.5);
 
         this.autoclaw.setPosition(0);
-        this.odometer.odSleep(1000);
+        this.odometer.odSleep(800);
         this.wrist.setPosition(0.8);
-        this.odometer.odSleep(700);
-        this.odStrafe(0,1,-34.5,100,2);
+        this.odometer.odSleep(300);
+        this.odStrafe(0,1,-34,100,8);
     }
 
     // offset is how many inches from the bridge side of the foundation to place the stone
     public void AutoPlaceStoneRedSide(int offset) {
-        this.odStrafe(0, 1, -34, 94+offset, 10);
-        this.odStrafe(0, 0.3, -37, 104+offset, 3);
+        this.odStrafe(0, 1, -34, 94+offset, 12);
+        this.BrakeRobot(100);
+        this.odStrafe(0, 0.35, -37, 104+offset, 3);
         this.wrist.setPosition(0.2);
-        this.odometer.odSleep(300);
+        this.odometer.odSleep(600);
         this.autoclaw.setPosition(1);
-        this.odometer.odSleep(300);
+        this.odometer.odSleep(500);
         this.wrist.setPosition(0.8);
         this.autoclaw.setPosition(0);
+    }
+
+    public void DriveBaseSetZeroPowerBehavior(DcMotor.ZeroPowerBehavior behavior) {
+        wheel1.setZeroPowerBehavior(behavior);
+        wheel2.setZeroPowerBehavior(behavior);
+        wheel3.setZeroPowerBehavior(behavior);
+        wheel4.setZeroPowerBehavior(behavior);
+    }
+
+    public void BrakeRobot(int ms) {
+        wheel1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        wheel2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        wheel3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        wheel4.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        wheel1.setPower(0);
+        wheel2.setPower(0);
+        wheel3.setPower(0);
+        wheel4.setPower(0);
+
+        this.odometer.odSleep(ms);
     }
 }

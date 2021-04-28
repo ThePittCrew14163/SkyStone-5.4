@@ -10,12 +10,12 @@ import org.openftc.easyopencv.OpenCvPipeline;
 public class SkystoneDetector extends OpenCvPipeline {
     private Mat workingMatrix = new Mat();
     public String position = "LEFT";
-    private int leftBoxX = 60;
-    private int centerBoxX = 170;
-    private int rightBoxX = 340;
-    private int boxWidth = 120;
+    private int leftBoxX = 70;
+    private int centerBoxX = 230;
+    private int rightBoxX = 370;
+    private int boxWidth = 110;
     private int boxHeight = 70;
-    private int boxY = 300;
+    private int boxY = 330;
     public SkystoneDetector() {
     }
     public SkystoneDetector(String side) {

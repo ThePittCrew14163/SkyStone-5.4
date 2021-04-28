@@ -65,8 +65,8 @@ public class Skystone4StoneAuto extends LinearOpMode {
 
         robot.autoclaw.setPosition(0);
         robot.wrist.setPosition(0.8);
-        robot.foundationGrabberL.setPosition(0);
-        robot.foundationGrabberR.setPosition(1);
+        robot.foundationGrabberL.setPosition(1);
+        robot.foundationGrabberR.setPosition(0);
 
         while (!isStarted()) {
             position = detector.position;
@@ -77,45 +77,54 @@ public class Skystone4StoneAuto extends LinearOpMode {
         if (position.equals("CENTER")) {
             robot.AutoGrabStoneRedSide(2);
             robot.AutoPlaceStoneRedSide(24);
-            robot.odStrafe(0, 1, -33, 76, 8);
+            robot.odStrafe(0, 1, -33, 76, 10);
             robot.AutoGrabStoneRedSide(5);
             robot.AutoPlaceStoneRedSide(16);
-            robot.odStrafe(0, 1, -33, 76, 8);
+            robot.odStrafe(0, 1, -33, 76, 10);
             robot.AutoGrabStoneRedSide(6);
             robot.AutoPlaceStoneRedSide(8);
-            robot.odStrafe(0, 1, -33, 76, 8);
+            robot.odStrafe(0, 1, -36, 76, 10);
             robot.AutoGrabStoneRedSide(4);
             robot.AutoPlaceStoneRedSide(12);
-        }
-        else if (position.equals("RIGHT")) {
+        } else if (position.equals("RIGHT")) {
             robot.AutoGrabStoneRedSide(3);
             robot.AutoPlaceStoneRedSide(24);
-            robot.odStrafe(0, 1, -33, 76, 8);
+            robot.odStrafe(0, 1, -33, 76, 10);
             robot.AutoGrabStoneRedSide(6);
             robot.AutoPlaceStoneRedSide(16);
-            robot.odStrafe(0, 1, -33, 76, 8);
+            robot.odStrafe(0, 1, -33, 76, 10);
             robot.AutoGrabStoneRedSide(5);
             robot.AutoPlaceStoneRedSide(8);
-            robot.odStrafe(0, 1, -33, 76, 8);
+            robot.odStrafe(0, 1, -36, 76, 10);
             robot.AutoGrabStoneRedSide(4);
             robot.AutoPlaceStoneRedSide(12);
-        }
-        else {
+        } else {
             robot.AutoGrabStoneRedSide(1);
             robot.AutoPlaceStoneRedSide(24);
-            robot.odStrafe(0, 1, -33, 66, 8);
+            robot.odStrafe(0, 1, -33, 76, 10);
             robot.AutoGrabStoneRedSide(4);
             robot.AutoPlaceStoneRedSide(16);
-            robot.odStrafe(0, 1, -33, 66, 8);
+            robot.odStrafe(0, 1, -33, 76, 10);
             robot.AutoGrabStoneRedSide(6);
             robot.AutoPlaceStoneRedSide(8);
-            robot.odStrafe(0, 1, -33, 66, 8);
+            robot.odStrafe(0, 1, -36, 76, 10);
             robot.AutoGrabStoneRedSide(5);
             robot.AutoPlaceStoneRedSide(12);
         }
 
-        // move foundation and park
-        robot.odStrafe(0, 0.6, -33, 72, 6);
+        // move foundation
+        robot.odTurn(90, 0.8, 1200);
+        robot.odStrafe(90, 0.5, -42, 114, 3, 0.01, 2500);
+        robot.odometer.odSleep(500);
+        robot.foundationGrabberL.setPosition(0);
+        robot.foundationGrabberR.setPosition(1);
+        robot.odometer.odSleep(500);
 
+        robot.odStrafe(0, 1, -15, 110, 4, 0.0005, 3500);
+        robot.foundationGrabberL.setPosition(1);
+        robot.foundationGrabberR.setPosition(0);
+        robot.odStrafe(0, 1, -15, 125, 5, 0.02, 750);
+        // park
+        robot.odStrafe(0, 0.6, -20, 72, 6);
     }
 }
