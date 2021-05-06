@@ -84,6 +84,7 @@ public class SkystoneRobot2 {
         wheel4.setDirection(DcMotorSimple.Direction.REVERSE);
         wheel2.setDirection(DcMotorSimple.Direction.REVERSE);
         encoderX.setDirection(DcMotorSimple.Direction.REVERSE);
+        lift3.setDirection(DcMotorSimple.Direction.REVERSE);
 
         odometer = new Odometry(0, 0, 0);
         odometer.init(imu, encoderY, encoderX);
@@ -434,28 +435,37 @@ public class SkystoneRobot2 {
 
     // the stone closest to the wall is 1, and closest to the bridge is 6
     public void AutoGrabStoneRedSide(int stone) {
-        this.autoclaw.setPosition(1);
+        AutoGrabStoneRedSide(stone, false);
+    }
+    public void AutoGrabStoneRedSide(int stone, boolean isFirstStone) {
+        this.autoclaw.setPosition(0.8);
         this.wrist.setPosition(0);
-        this.odStrafe(0,1,-32,8*stone + 13,10);
-        this.BrakeRobot(100);
-        this.odStrafe(0,0.35,-35,8*stone + 3,1.5);
+        if (isFirstStone) {
+            this.odStrafe(0, 1, -33, 8 * stone + 12, 10);
+        } else {
+            this.odStrafe(0, 1, -28, 8 * stone + 6, 10);
+        }
+        this.BrakeRobot(90);
+        this.autoclaw.setPosition(0.5);
+        this.odStrafe(0,0.35,-35,8*stone + 1,1.5);
 
         this.autoclaw.setPosition(0);
-        this.odometer.odSleep(800);
+        this.odometer.odSleep(500);
         this.wrist.setPosition(0.8);
-        this.odometer.odSleep(300);
+        this.odometer.odSleep(250);
         this.odStrafe(0,1,-34,100,8);
     }
 
     // offset is how many inches from the bridge side of the foundation to place the stone
     public void AutoPlaceStoneRedSide(int offset) {
-        this.odStrafe(0, 1, -34, 94+offset, 12);
-        this.BrakeRobot(100);
-        this.odStrafe(0, 0.35, -37, 104+offset, 3);
+        this.odStrafe(0, 1, -33, 94+offset, 12);
+        this.wrist.setPosition(0.4);
+        this.BrakeRobot(90);
+        this.odStrafe(0, 0.35, -34, 104+offset, 3);
         this.wrist.setPosition(0.2);
-        this.odometer.odSleep(600);
-        this.autoclaw.setPosition(1);
-        this.odometer.odSleep(500);
+        this.odometer.odSleep(200);
+        this.autoclaw.setPosition(0.8);
+        this.odometer.odSleep(400);
         this.wrist.setPosition(0.8);
         this.autoclaw.setPosition(0);
     }

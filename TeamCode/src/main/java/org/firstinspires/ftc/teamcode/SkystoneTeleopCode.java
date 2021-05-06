@@ -32,6 +32,8 @@ public class SkystoneTeleopCode extends LinearOpMode {
         robot.odometer.x = 87;
         robot.odometer.y = 73;
 
+        robot.capstoneClaw.setPosition(0);
+
         if (Math.abs(gamepad2.right_stick_x) + Math.abs(gamepad2.right_stick_y) > 0.2) {
             adjustAngle = Math.atan2(gamepad2.right_stick_x, -gamepad2.right_stick_y) + Math.PI / 2;
         }
@@ -111,8 +113,7 @@ public class SkystoneTeleopCode extends LinearOpMode {
             ////// UPDATE TELEMETRY //////
             telemetry.update();
 
-            /////// CAPSTONE PLACER/////////
-
+            /////// CAPSTONE PLACER /////////
             if (gamepad1.x){
                 robot.capstoneClaw.setPosition(1);
             }
@@ -127,7 +128,7 @@ public class SkystoneTeleopCode extends LinearOpMode {
 
             ////// THEY GO UP ///////
             if (gamepad1.left_bumper){
-                robot.foundationGrabberL.setPosition(0);
+                robot.foundationGrabberL.setPosition(0.5);
                 robot.foundationGrabberR.setPosition(1);
             }
             ////// THEY GO DOWN /////////
