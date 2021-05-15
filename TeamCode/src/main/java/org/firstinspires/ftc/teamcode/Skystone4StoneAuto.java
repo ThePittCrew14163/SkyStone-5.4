@@ -118,16 +118,18 @@ public class Skystone4StoneAuto extends LinearOpMode {
         robot.odTurn(90, 0.8, 1000);
         robot.lift2.setPower(0);
         robot.lift3.setPower(0);
+        robot.foundationGrabberL.setPosition(0.5);
+        robot.foundationGrabberR.setPosition(0.5);
         robot.odStrafe(90, 0.45, -42, 116, 3, 0.01, 2500);
         robot.foundationGrabberL.setPosition(0.02);
         robot.foundationGrabberR.setPosition(0.98);
         robot.odometer.odSleep(500);
 
-        robot.odStrafe(80, 1, -15, 110, 4, 0.001, 3500);
-        robot.odTurn(-20, 2, 2500);
+        robot.odStrafe(80, 1, -24, 110, 4, 0.001, 3500);
+        robot.odTurn(-20, 2, 2000);
         robot.foundationGrabberL.setPosition(1);
         robot.foundationGrabberR.setPosition(0);
-        robot.odStrafe(0, 1, -15, 125, 5, 0.02, 750);
+        robot.odStrafe(0, 1, -24, 125, 5, 0.02, 750);
         // park
         robot.odStrafe(0, 0.6, -20, 80, 6);
     }
@@ -135,7 +137,7 @@ public class Skystone4StoneAuto extends LinearOpMode {
         GoBackUnderRedBridge(0);
     }
     public void GoBackUnderRedBridge(int offset){
-        robot.odStrafe(0, 1, -26, 105, 8);
-        robot.odStrafe(0, 1, -29+offset, 76, 10);
+        robot.odStrafe(0, 1, -27, 106, 8);
+        robot.odStrafe(0, 1, -30+offset, 72, 10);
     }
 }
