@@ -440,6 +440,7 @@ public class SkystoneRobot2 {
     public void AutoGrabStoneRedSide(int stone, boolean isFirstStone) {
         this.autoclaw.setPosition(0.8);
         this.wrist.setPosition(0.12);
+
         if (isFirstStone) {
             this.odStrafe(0, 1, -30, 8 * stone + 7, 10);
             this.BrakeRobot(20);
@@ -465,6 +466,7 @@ public class SkystoneRobot2 {
         this.wrist.setPosition(0.35);
         this.BrakeRobot(90);
         this.odStrafe(0, 0.35, -36, 104+offset, 3);
+
         this.wrist.setPosition(0.2);
         this.autoclaw.setPosition(0.8);
         this.odometer.odSleep(300);
