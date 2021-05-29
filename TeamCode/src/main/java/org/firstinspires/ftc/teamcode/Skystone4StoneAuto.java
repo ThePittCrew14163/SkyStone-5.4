@@ -76,19 +76,19 @@ public class Skystone4StoneAuto extends LinearOpMode {
 
         if (position.equals("CENTER")) {
             robot.AutoGrabStoneRedSide(2, true);
-            robot.AutoPlaceStoneRedSide(24);
+            robot.AutoPlaceStoneRedSide(20);
             GoBackUnderRedBridge();
             robot.AutoGrabStoneRedSide(5);
             robot.AutoPlaceStoneRedSide(16);
             GoBackUnderRedBridge();
             robot.AutoGrabStoneRedSide(6);
-            robot.AutoPlaceStoneRedSide(8);
+            robot.AutoPlaceStoneRedSide(10);
             GoBackUnderRedBridge(-2);
             robot.AutoGrabStoneRedSide(4);
-            robot.AutoPlaceStoneRedSide(12);
+            robot.AutoPlaceStoneRedSide(13);
         } else if (position.equals("RIGHT")) {
             robot.AutoGrabStoneRedSide(3, true);
-            robot.AutoPlaceStoneRedSide(24);
+            robot.AutoPlaceStoneRedSide(20);
             GoBackUnderRedBridge();
             robot.AutoGrabStoneRedSide(6);
             robot.AutoPlaceStoneRedSide(16);
@@ -97,19 +97,19 @@ public class Skystone4StoneAuto extends LinearOpMode {
             robot.AutoPlaceStoneRedSide(8);
             GoBackUnderRedBridge(-2);
             robot.AutoGrabStoneRedSide(4);
-            robot.AutoPlaceStoneRedSide(12);
+            robot.AutoPlaceStoneRedSide(13);
         } else {
             robot.AutoGrabStoneRedSide(1, true);
-            robot.AutoPlaceStoneRedSide(24);
+            robot.AutoPlaceStoneRedSide(20);
             GoBackUnderRedBridge();
             robot.AutoGrabStoneRedSide(4);
             robot.AutoPlaceStoneRedSide(16);
             GoBackUnderRedBridge();
             robot.AutoGrabStoneRedSide(6);
-            robot.AutoPlaceStoneRedSide(8);
+            robot.AutoPlaceStoneRedSide(10);
             GoBackUnderRedBridge(-2);
             robot.AutoGrabStoneRedSide(5);
-            robot.AutoPlaceStoneRedSide(12);
+            robot.AutoPlaceStoneRedSide(13);
         }
 
         // move foundation
@@ -126,7 +126,7 @@ public class Skystone4StoneAuto extends LinearOpMode {
         robot.odometer.odSleep(500);
 
         robot.odStrafe(80, 1, -24, 110, 4, 0.001, 3500);
-        robot.odTurn(-20, 2, 2000);
+        robot.odTurn(-15, 2, 1800);
         robot.foundationGrabberL.setPosition(1);
         robot.foundationGrabberR.setPosition(0);
         robot.odStrafe(0, 1, -24, 125, 5, 0.02, 750);
