@@ -30,8 +30,8 @@ import java.util.ArrayList;
 public class Odometry {
     public double angle;
     public double angle_adjust;
-    public double x;
-    public double y;
+    public int x;
+    public int y;
     public final double CLICKS_PER_INCH = 8192 / (2.362 * Math.PI);
     public final double X_DIS_FROM_CENTER = 0; //4; // distance from the x wheel to the center of the robot.
     public final double Y_DIS_FROM_CENTER = 0; //2.5; // distance from the y wheel to the center of the robot.
