@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -43,6 +42,7 @@ public class Grab_Mineral_Robot extends LinearOpMode {
         telemetry.addData("adjustAngle", (adjustAngle * 180) / Math.PI);
         telemetry.update();
 
+        robot.motorTurn(0.1, 1, robot.lift3);
         // Wait for the game to start
 
         waitForStart();
@@ -112,10 +112,10 @@ public class Grab_Mineral_Robot extends LinearOpMode {
             telemetry.addData("Y value:", list.get(2));
 
             if (gamepad1.right_bumper ){
-                robot.motorTurnNoReset(0.5, 100, robot.lift3);////////////ELBOW OF ROBOT GOES UP////////////
+                robot.motorTurnNoReset(0.5, 0, robot.lift3);////////////ELBOW OF ROBOT GOES UP////////////
             }
             else if (gamepad1.left_bumper){
-                robot.motorTurnNoReset(0.5, 0, robot.lift3);///////////ELBOW OF ROBOT GOES DOWN///////////
+                robot.motorTurnNoReset(0.5, -150, robot.lift3);///////////ELBOW OF ROBOT GOES DOWN///////////
             }
             if (gamepad1.dpad_right){
                 robot.capstoneHinge.setPosition(1);/////////RELEASE MINERALS////////////
@@ -124,10 +124,6 @@ public class Grab_Mineral_Robot extends LinearOpMode {
                 robot.capstoneHinge.setPosition(0);////////////TRAP MINERALS////////////
             }
         }
-    }
-
-    public void init(HardwareMap hardwareMap, Grab_Mineral_Auto_Robot grab_mineral_auto_robot) {
-
     }
 }
 
