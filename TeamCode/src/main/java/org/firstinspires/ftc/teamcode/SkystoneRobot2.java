@@ -4,7 +4,6 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Blinker;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -31,7 +30,7 @@ public class SkystoneRobot2 {
     public DcMotor encoderX;
     public DcMotor lift2;
     public DcMotor lift3;
-
+//
     public Odometry odometer;
     public Servo wrist; // 0 is down, 0.5 is up, 0.8 is inside
     public Servo autoclaw; // 0 is closed, 1 is open
@@ -56,39 +55,38 @@ public class SkystoneRobot2 {
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
 
-        expansion_Hub_2 = hardwareMap.get(Blinker.class, "Expansion Hub 2");
-        expansion_Hub_3 = hardwareMap.get(Blinker.class, "Expansion Hub 3");
-        imu_1 = hardwareMap.get(Gyroscope.class, "imu 1");
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-
-        wrist = hardwareMap.get(Servo.class, "wrist");
-        autoclaw = hardwareMap.get(Servo.class, "autoclaw");
-        foundationGrabberL = hardwareMap.get(Servo.class, "foundationGrabberL");
-        foundationGrabberR = hardwareMap.get(Servo.class, "foundationGrabberR");
-        mainClawL = hardwareMap.get(Servo.class, "mainClawL");
-        mainClawR = hardwareMap.get(Servo.class, "mainClawR");
-        capstoneHinge = hardwareMap.get(Servo.class, "capstoneHinge");
-        capstoneClaw = hardwareMap.get(Servo.class, "capstoneClaw");
+        //expansion_Hub_2 = hardwareMap.get(Blinker.class, "Expansion Hub 2");
+        //expansion_Hub_3 = hardwareMap.get(Blinker.class, "Expansion Hub 3");
+        //imu_1 = hardwareMap.get(Gyroscope.class, "imu 1");
+//
+//        wrist = hardwareMap.get(Servo.class, "wrist");
+//        autoclaw = hardwareMap.get(Servo.class, "autoclaw");
+//        foundationGrabberL = hardwareMap.get(Servo.class, "foundationGrabberL");
+//        foundationGrabberR = hardwareMap.get(Servo.class, "foundationGrabberR");
+//        mainClawL = hardwareMap.get(Servo.class, "mainClawL");
+//        mainClawR = hardwareMap.get(Servo.class, "mainClawR");
+//        capstoneHinge = hardwareMap.get(Servo.class, "capstoneHinge");
+//        capstoneClaw = hardwareMap.get(Servo.class, "capstoneClaw");
 
         wheel1 = hardwareMap.get(DcMotor.class, "wheel1");
         wheel2 = hardwareMap.get(DcMotor.class, "wheel2");
         wheel3 = hardwareMap.get(DcMotor.class, "wheel3");
         wheel4 = hardwareMap.get(DcMotor.class, "wheel4");
-        encoderY = hardwareMap.get(DcMotor.class, "encoderY");
-        encoderX = hardwareMap.get(DcMotor.class, "encoderX");
-        lift2 = hardwareMap.get(DcMotorEx.class, "lift2");
-        lift3 = hardwareMap.get(DcMotor.class, "lift3");
+//        encoderY = hardwareMap.get(DcMotor.class, "encoderY");
+//        encoderX = hardwareMap.get(DcMotor.class, "encoderX");
+//        lift2 = hardwareMap.get(DcMotorEx.class, "lift2");
+//        lift3 = hardwareMap.get(DcMotor.class, "lift3");
 
         DriveBaseSetZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         wheel4.setDirection(DcMotorSimple.Direction.REVERSE);
         wheel2.setDirection(DcMotorSimple.Direction.REVERSE);
-        encoderX.setDirection(DcMotorSimple.Direction.REVERSE);
-        lift3.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        odometer = new Odometry(0, 0, 0);
-        odometer.init(imu, encoderY, encoderX);
-        this.program = program;
+//        encoderX.setDirection(DcMotorSimple.Direction.REVERSE);
+        //lift3.setDirection(DcMotorSimple.Direction.REVERSE);
+//
+//        odometer = new Odometry(0, 0, 0);
+//        odometer.init(imu, encoderY, encoderX);
+//        this.program = program;
     }
     public void strafe(double degrees, double speed, double clicks, int millis) {
         // degrees is which direction the robot goes.

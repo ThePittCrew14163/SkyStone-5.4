@@ -7,8 +7,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 
-import java.util.ArrayList;
-
 @TeleOp(name="Grab_Mineral_Robot")
 public class Grab_Mineral_Robot extends LinearOpMode {
     public SkystoneRobot2 robot = new SkystoneRobot2();
@@ -30,8 +28,8 @@ public class Grab_Mineral_Robot extends LinearOpMode {
         // adjustAngle = this.get_coordinates(); // doesn't work. yet.
 
         //Start robot with front just up against launch zone line and side against blue wall, intake facing the target.
-        robot.odometer.x = 87;
-        robot.odometer.y = 73;
+//        robot.odometer.x = 87;
+//        robot.odometer.y = 73;
 
 
         if (Math.abs(gamepad2.right_stick_x) + Math.abs(gamepad2.right_stick_y) > 0.2) {
@@ -42,7 +40,7 @@ public class Grab_Mineral_Robot extends LinearOpMode {
         telemetry.addData("adjustAngle", (adjustAngle * 180) / Math.PI);
         telemetry.update();
 
-        robot.motorTurn(0.1, 1, robot.lift3);
+        //robot.motorTurn(0.1, 1, robot.lift3);
         // Wait for the game to start
 
         waitForStart();
@@ -107,22 +105,22 @@ public class Grab_Mineral_Robot extends LinearOpMode {
             robot.wheel2.setPower(xWheelsPower * leftStickR - speed1);
             robot.wheel3.setPower(xWheelsPower * leftStickR + speed2);
 
-            ArrayList<Double> list = robot.odometer.getCurrentCoordinates();
-            telemetry.addData("X value:", list.get(1));
-            telemetry.addData("Y value:", list.get(2));
-
-            if (gamepad1.right_bumper ){
-                robot.motorTurnNoReset(0.5, 0, robot.lift3);////////////ELBOW OF ROBOT GOES UP////////////
-            }
-            else if (gamepad1.left_bumper){
-                robot.motorTurnNoReset(0.5, -150, robot.lift3);///////////ELBOW OF ROBOT GOES DOWN///////////
-            }
-            if (gamepad1.dpad_right){
-                robot.capstoneHinge.setPosition(1);/////////RELEASE MINERALS////////////
-            }
-            if (gamepad1.dpad_left) {
-                robot.capstoneHinge.setPosition(0);////////////TRAP MINERALS////////////
-            }
+//            ArrayList<Double> list = robot.odometer.getCurrentCoordinates();
+//            telemetry.addData("X value:", list.get(1));
+//            telemetry.addData("Y value:", list.get(2));
+//
+//            if (gamepad1.right_bumper ){
+//                robot.motorTurnNoReset(0.5, 0, robot.lift3);////////////ELBOW OF ROBOT GOES UP////////////
+//            }
+//            else if (gamepad1.left_bumper){
+//                robot.motorTurnNoReset(0.5, -270, robot.lift3);///////////ELBOW OF ROBOT GOES DOWN///////////
+//            }
+//            if (gamepad1.dpad_right){
+//                robot.capstoneHinge.setPosition(1);/////////RELEASE MINERALS////////////
+//            }
+//            if (gamepad1.dpad_left) {
+//                robot.capstoneHinge.setPosition(0);////////////TRAP MINERALS////////////
+//            }
         }
     }
 }
