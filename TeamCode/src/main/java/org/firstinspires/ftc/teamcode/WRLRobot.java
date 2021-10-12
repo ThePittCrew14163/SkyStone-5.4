@@ -34,7 +34,6 @@ public class WRLRobot {
     public Odometry odometer;
     public Orientation angles; // used to get info from BNO055IMU
 
-    HardwareMap hardwareMap;  // used to link code objects to real objects.
     LinearOpMode program; // the program using this module.  Robot requires access to the program to know when the program is trying to stop.
 
     public void init(HardwareMap hardwareMap, LinearOpMode program) {

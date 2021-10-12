@@ -51,7 +51,6 @@ public class UltimateGoalRobot {
     public Servo rightWing; // 1 is up, 0 is down
     public Orientation angles; // used to get info from BNO055IMU
 
-    HardwareMap hardwareMap;  // used to link code objects to real objects.
     LinearOpMode program; // the program using this module.  Robot requires access to the program to know when the program is trying to stop.
 
     // each coordinate is a len 3 array of x, y, and z. Starting point is audience/blue corner.
@@ -113,119 +112,15 @@ public class UltimateGoalRobot {
         odometer.init(imu, encoderY, encoderX);
         this.program = program;
     }
-    public void strafe(double degrees, double speed, double clicks, int millis) {
-        // degrees is which direction the robot goes.
-        // 0 degrees is forward, 90 is right, -90 is left and +/- 180 is backwards.
-        // millis is a time limit on the method in milliseconds.
-        // negative clicks will reverse the direction. please don't use negative clicks.
-        // 100 clicks is about 2 inches if the robot is going forward.
-        double start = (int)System.currentTimeMillis();
-        // keep degrees in the correct range
-        degrees += 45;
-        if (degrees >= 180) {
-            degrees -= 360;
-        } else if (degrees < -180) {
-            degrees += 360;
-        }
-
-        double theta = degrees/180*Math.PI;
-        if (theta >= Math.PI) {
-            theta -= Math.PI*2;
-        } else if (theta < -Math.PI) {
-            theta += Math.PI*2;
-        }
-        double x_vector = Math.cos(theta);  // calculate ratio of x distance to y distance.
-        double y_vector = Math.sin(theta);
-
-
-        wheel1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        wheel2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        wheel3.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        wheel4.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        // the mecanum wheels work in pairs, with a pair being a wheel and the wheel across the robot.
-        // thus wheels 1 and 4 are one pair, the 'y' pair, and wheels 2 and 3 are the 'x' pair.
-        // due to the way trigonometric functions and mecanum wheels work, it's helpful to think of the wheel pairs as x and y components.
-        int xclicks = (int)Math.round(clicks*x_vector);
-        int yclicks = (int)Math.round(clicks*y_vector);
-        wheel1.setTargetPosition(yclicks);
-        wheel2.setTargetPosition(xclicks);
-        wheel3.setTargetPosition(xclicks);
-        wheel4.setTargetPosition(yclicks);
-
-        wheel1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        wheel2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        wheel3.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        wheel4.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        wheel1.setPower(speed*y_vector); // front motors are older than the back ones and require more power.
-        wheel2.setPower(speed*x_vector);
-        wheel3.setPower(speed*x_vector);
-        wheel4.setPower(speed*y_vector);
-        // loop to make robot move and continually correct heading while moving.
-        while (!this.program.isStopRequested() && (wheel1.isBusy() || wheel2.isBusy()) && (wheel3.isBusy() || wheel4.isBusy())) {
-            if (start+millis < (int)System.currentTimeMillis()) {
-                break;
-            }
-        }
-        // stop.
-        wheel1.setPower(0);
-        wheel2.setPower(0);
-        wheel3.setPower(0);
-        wheel4.setPower(0);
-        wheel1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        wheel2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        wheel3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        wheel4.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    }
-    public void imuTurn(int degrees, double speed, int millis) {
-        // has robot turn at speed power to heading degrees. degrees should be 180 >= degrees >= -180.
-        // millis is a time limit on the method in milliseconds.
-        double difference, sign, correct, final_speed, start = (int)System.currentTimeMillis();
-        angles = this.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
-        while (angles.firstAngle != degrees && !this.program.isStopRequested()) {
-
-            angles = this.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            difference = angles.firstAngle-degrees;
-            if (difference < 0) { sign = -1;
-            } else { sign = 1; }
-
-            if (Math.abs(difference) > 180) {
-                difference = sign * (360-Math.abs(difference));
-                correct = -(difference)/60;
-                if (Math.abs(correct) > 1) { correct = -sign; }
-            } else {
-                correct = (difference)/60;
-                if (Math.abs(correct) > 1) { correct = sign; }
-            }
-            final_speed = speed*correct;
-            if (Math.abs(final_speed) < 0.2) {
-                if (final_speed > 0) {final_speed = 0.2;}
-                if (final_speed < 0) {final_speed = -0.2;}
-            }
-            wheel2.setPower(-final_speed);
-            wheel4.setPower(-final_speed);
-            wheel1.setPower(final_speed);
-            wheel3.setPower(final_speed);
-            if (start+millis < (int)System.currentTimeMillis()) {
-                break;
-            }
-        }
-        wheel2.setPower(0);
-        wheel4.setPower(0);
-        wheel1.setPower(0);
-        wheel3.setPower(0);
-    }
     public void motorTurnNoReset(double speed, int clicks, DcMotor motor) {
-        // has motor turn clicks at speed. Not very compicated.
+        // has motor turn clicks at speed. Not very complicated.
         motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motor.setTargetPosition(clicks);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motor.setPower(speed);
     }
     public void motorTurn(double speed, int clicks, DcMotor motor) {
-        // has motor turn clicks at speed. Not very compicated.
+        // has motor turn clicks at speed. Not very complicated.
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setTargetPosition(clicks);
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -432,10 +327,10 @@ public class UltimateGoalRobot {
             if (Math.abs(difference) > 180) {
                 difference = sign * (360-Math.abs(difference));
                 correct = -(difference)/120;
-                if (Math.abs(correct) > 1) { correct = -sign; } // make sure that we don't correct so mauch that we give the motors greater power than speed.
+                if (Math.abs(correct) > 1) { correct = -sign; } // make sure that we don't correct so much that we give the motors greater power than speed.
             } else {
                 correct = (difference)/120;
-                if (Math.abs(correct) > 1) { correct = sign; } // make sure that we don't correct so mauch that we give the motors greater power than speed.
+                if (Math.abs(correct) > 1) { correct = sign; } // make sure that we don't correct so much that we give the motors greater power than speed.
             }
             final_speed = speed*correct;
             if (Math.abs(final_speed) < 0.22) {
