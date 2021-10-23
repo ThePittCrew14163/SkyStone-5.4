@@ -101,8 +101,8 @@ public class TestRingFinder extends LinearOpMode {
             telemetry.addData("Position 1", pipeline2.positions[0]);
             telemetry.addData("Position 2", pipeline2.positions[1]);
             int count = 0;
-            for (double threshhold : pipeline2.threshholds) {
-                telemetry.addData("Threshhold" + count, threshhold);
+            for (double threshold : pipeline2.thresholds) {
+                telemetry.addData("Threshold" + count, threshold);
             }
             telemetry.update();
         }
